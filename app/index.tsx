@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { FlatList } from "react-native";
 import { ListItem } from "./components/ListItem/ListItem";
+import "react-native-get-random-values"; // <- to musi być PRZED importem uuid
 import { v4 as uuidv4 } from "uuid";
 
 interface Product {
@@ -47,7 +48,6 @@ const Index = () => {
             return <View style={{ height: 16 }} />;
           }}
           renderItem={(product) => {
-            console.log("product", product);
             return <ListItem productName={product.item.name} />;
           }}
         ></FlatList>
@@ -65,21 +65,6 @@ const Index = () => {
       </View>
     </SafeAreaView>
   );
-};
-
-export default Index;
-
-const RootPageStyles = StyleSheet.create({
-  root: {
-    flex: 1,
-    borderWidth: 1,
-    width: "100%",
-    backgroundColor: "#201b4a",
-    padding: 20,
-    paddingBottom: 40,
-    justifyContent: "space-between",
-  },
-});
 };
 
 export default Index;
