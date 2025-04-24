@@ -80,3 +80,18 @@ const RootPageStyles = StyleSheet.create({
     justifyContent: "space-between",
   },
 });
+};
+
+export default Index;
+
+const RootPageStyles = StyleSheet.create({
+  root: {
+    flex: 1,
+    borderWidth: 1,
+    width: "100%",
+    backgroundColor: "#201b4a",
+    padding: 20,
+    paddingBottom: 40,
+    justifyContent: "space-between",
+  },
+});
