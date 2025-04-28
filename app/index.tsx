@@ -33,6 +33,12 @@ const Index = () => {
     });
     setInputValue("");
   };
+
+  const handleRemoveProduct = (id: string) => {
+    const updatedList = listItems.filter((item) => item.id !== id);
+    setListItems(updatedList);
+  };
+
   const handleInputChange = (text: string) => {
     setInputValue(text);
   };
@@ -48,7 +54,13 @@ const Index = () => {
             return <View style={{ height: 16 }} />;
           }}
           renderItem={(product) => {
-            return <ListItem productName={product.item.name} />;
+            return (
+              <ListItem
+                productName={product.item.name}
+                id={product.item.id}
+                handleRemoveProduct={handleRemoveProduct}
+              />
+            );
           }}
         ></FlatList>
       </View>
