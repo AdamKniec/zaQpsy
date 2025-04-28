@@ -2,6 +2,8 @@ import { Pressable, Text, View, StyleSheet } from "react-native";
 
 interface ListItemProps {
   productName: string;
+  handleRemoveProduct: (id: string) => void;
+  id: string;
 }
 
 export const ListItem = (props: ListItemProps) => {
@@ -11,7 +13,12 @@ export const ListItem = (props: ListItemProps) => {
         {props.productName}
       </Text>
       <Pressable>
-        <Text style={{ ...Styles.removeButton, ...Styles.shared }}>X</Text>
+        <Text
+          style={{ ...Styles.removeButton, ...Styles.shared }}
+          onPress={() => props.handleRemoveProduct(props.id)}
+        >
+          X
+        </Text>
       </Pressable>
     </View>
   );
