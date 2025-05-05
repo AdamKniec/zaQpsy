@@ -1,41 +1,102 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   View,
   TextInput,
   StyleSheet,
   SafeAreaView,
   Button,
+  Text,
+  FlatList,
 } from "react-native";
-import { FlatList } from "react-native";
-import { ListItem } from "./components/ListItem/ListItem";
-import "react-native-get-random-values"; // <- to musi być PRZED importem uuid
+import { useQuery, useMutation } from "@tanstack/react-query";
+
+import ListItem from "./components/ListItem/ListItem";
+import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
 
 interface Product {
   name: string;
-  id: string;
+  uuid: string;
 }
 
-const Index = () => {
-  const [listItems, setListItems] = useState<Product[]>([]);
+// TODO MOVE TO CUSTOM HOOK
+// TODO FETCH USING SUPABASE OBJECT
+const fetchProducts = async () => {
+  const apiUrl = process.env.EXPO_PUBLIC_API_URL;
+  const apiToken = process.env.EXPO_PUBLIC_API_TOKEN;
 
+  const response = await fetch(`${apiUrl}/products`, {
+    method: "GET",
+    headers: {
+      apikey: `${apiToken}`,
+      Authorization: `Bearer ${apiToken}`,
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error("Network response was not ok");
+  }
+
+  const data = await response.json();
+  return data;
+};
+
+// TODO MOVE TO CUSTOM HOOK
+const addProductRequest = async (newProduct: any) => {
+  const response = await fetch("", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      apikey: ``,
+      Authorization: ``,
+      Prefer: "return=representation",
+    },
+    body: JSON.stringify(newProduct),
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to add product");
+  }
+
+  return response.json();
+};
+const Index = () => {
   const [inputValue, setInputValue] = useState("");
+  const [listItems, setListItems] = useState<Product[]>([]);
+  const { data, error, isLoading } = useQuery({
+    queryKey: ["products"],
+    queryFn: fetchProducts,
+  });
+  useEffect(() => {
+    setListItems(data);
+  }, [data]);
+
+  //TODO HANDLE DATA LOADING PROPERLY
+  if (!data) {
+    return <Text>LOADING DATA...</Text>;
+  }
+
+  // const { mutate } = useMutation({
+  //   mutationFn: addProductRequest,
+  // });
+  //todo handle this case properly
 
   const handleButtonPress = () => {
     setListItems((prevState) => {
       return [
         ...prevState,
         {
-          id: uuidv4(),
+          uuid: uuidv4(),
           name: inputValue,
         },
       ];
     });
+    // mutate({ id: uuidv4(), name: inputValue });
     setInputValue("");
   };
 
-  const handleRemoveProduct = (id: string) => {
-    const updatedList = listItems.filter((item) => item.id !== id);
+  const handleRemoveProduct = (uuid: string) => {
+    const updatedList = listItems.filter((item) => item.uuid !== uuid);
     setListItems(updatedList);
   };
 
@@ -57,7 +118,7 @@ const Index = () => {
             return (
               <ListItem
                 productName={product.item.name}
-                id={product.item.id}
+                uuid={product.item.uuid}
                 handleRemoveProduct={handleRemoveProduct}
               />
             );
