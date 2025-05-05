@@ -3,10 +3,10 @@ import { Pressable, Text, View, StyleSheet } from "react-native";
 interface ListItemProps {
   productName: string;
   handleRemoveProduct: (id: string) => void;
-  id: string;
+  uuid: string;
 }
 
-export const ListItem = (props: ListItemProps) => {
+const ListItem = (props: ListItemProps) => {
   return (
     <View style={Styles.wrapper}>
       <Text style={{ ...Styles.text, ...Styles.shared }}>
@@ -15,7 +15,7 @@ export const ListItem = (props: ListItemProps) => {
       <Pressable>
         <Text
           style={{ ...Styles.removeButton, ...Styles.shared }}
-          onPress={() => props.handleRemoveProduct(props.id)}
+          onPress={() => props.handleRemoveProduct(props.uuid)}
         >
           X
         </Text>
@@ -39,3 +39,5 @@ const Styles = StyleSheet.create({
     borderColor: "white",
   },
 });
+
+export default ListItem;
