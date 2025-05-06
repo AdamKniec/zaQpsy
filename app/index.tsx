@@ -16,7 +16,7 @@ import { v4 as uuidv4 } from "uuid";
 
 interface Product {
   name: string;
-  uuid: string;
+  id: string;
 }
 
 // TODO MOVE TO CUSTOM HOOK
@@ -43,12 +43,14 @@ const fetchProducts = async () => {
 
 // TODO MOVE TO CUSTOM HOOK
 const addProductRequest = async (newProduct: any) => {
-  const response = await fetch("", {
+  const apiUrl = process.env.EXPO_PUBLIC_API_URL;
+  const apiToken = process.env.EXPO_PUBLIC_API_TOKEN;
+  const response = await fetch(`${apiUrl}/products`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      apikey: ``,
-      Authorization: ``,
+      apikey: `${apiToken}`,
+      Authorization: `Bearer ${apiToken}`,
       Prefer: "return=representation",
     },
     body: JSON.stringify(newProduct),
@@ -60,12 +62,36 @@ const addProductRequest = async (newProduct: any) => {
 
   return response.json();
 };
+
+// TODO MOVE TO CUSTOM HOOK
+const deleteProductRequest = async (id: string) => {
+  const apiUrl = process.env.EXPO_PUBLIC_API_URL;
+  const apiToken = process.env.EXPO_PUBLIC_API_TOKEN;
+
+  const response = await fetch(`${apiUrl}/products?id=eq.${id}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      apikey: `${apiToken}`,
+      Authorization: `Bearer ${apiToken}`,
+      Prefer: "return=representation",
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to delete product");
+  }
+};
+
 const Index = () => {
   const [inputValue, setInputValue] = useState("");
   const [listItems, setListItems] = useState<Product[]>([]);
   const { data, error, isLoading } = useQuery({
     queryKey: ["products"],
     queryFn: fetchProducts,
+  });
+  const { mutate, error: errorPost } = useMutation({
+    mutationFn: addProductRequest,
   });
   useEffect(() => {
     setListItems(data);
@@ -76,28 +102,25 @@ const Index = () => {
     return <Text>LOADING DATA...</Text>;
   }
 
-  // const { mutate } = useMutation({
-  //   mutationFn: addProductRequest,
-  // });
   //todo handle this case properly
-
   const handleButtonPress = () => {
     setListItems((prevState) => {
       return [
         ...prevState,
         {
-          uuid: uuidv4(),
+          id: uuidv4(),
           name: inputValue,
         },
       ];
     });
-    // mutate({ id: uuidv4(), name: inputValue });
+    mutate({ id: uuidv4(), name: inputValue });
     setInputValue("");
   };
 
-  const handleRemoveProduct = (uuid: string) => {
-    const updatedList = listItems.filter((item) => item.uuid !== uuid);
+  const handleRemoveProduct = (id: string) => {
+    const updatedList = listItems.filter((item) => item.id !== id);
     setListItems(updatedList);
+    deleteProductRequest(id);
   };
 
   const handleInputChange = (text: string) => {
@@ -118,7 +141,7 @@ const Index = () => {
             return (
               <ListItem
                 productName={product.item.name}
-                uuid={product.item.uuid}
+                uuid={product.item.id}
                 handleRemoveProduct={handleRemoveProduct}
               />
             );
