@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import {
   Button,
@@ -11,34 +11,15 @@ import {
 } from "react-native";
 import ListItem from "./components/ListItem/ListItem";
 
-// import ListItem from "./components/ListItem/ListItem";
 import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
+import { useFetchProducts } from "./api/useFetchProducts";
 
 interface Product {
   name: string;
   id: string;
 }
 
-// TODO MOVE TO CUSTOM HOOK
-// TODO FETCH USING SUPABASE OBJECT
-const fetchProducts = async () => {
-  const apiUrl = "";
-  const apiToken = "";
-  const response = await fetch(`${apiUrl}/products`, {
-    method: "GET",
-    headers: {
-      apikey: `${apiToken}`,
-      Authorization: `Bearer ${apiToken}`,
-    },
-  });
-  if (!response.ok) {
-    throw new Error("Network response was not ok");
-  }
-  const data = await response.json();
-
-  return data;
-};
 const deleteProductRequest = async (id: string) => {
   const apiUrl = "";
   const apiToken = "";
@@ -82,10 +63,7 @@ const addProductRequest = async (newProduct: any) => {
 const Index = () => {
   const [inputValue, setInputValue] = useState("");
   const [listItems, setListItems] = useState<Product[]>([]);
-  const { data, error, isLoading } = useQuery({
-    queryKey: ["products"],
-    queryFn: fetchProducts,
-  });
+  const { data } = useFetchProducts();
 
   const { mutate, error: errorPost } = useMutation({
     mutationFn: addProductRequest,
@@ -93,6 +71,7 @@ const Index = () => {
   const { mutate: deleteRequest, error: errorDelete } = useMutation({
     mutationFn: deleteProductRequest,
   });
+
   useEffect(() => {
     setListItems(data);
   }, [data]);
