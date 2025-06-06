@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 
+// TODO FETCH USING SUPABASE OBJECT
 const fetchProducts = async () => {
   const apiUrl = "";
   const apiToken = "";
