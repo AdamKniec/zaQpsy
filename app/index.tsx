@@ -1,16 +1,17 @@
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import {
-  View,
-  TextInput,
-  StyleSheet,
-  SafeAreaView,
   Button,
-  Text,
   FlatList,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
 } from "react-native";
-import { useQuery, useMutation } from "@tanstack/react-query";
-
 import ListItem from "./components/ListItem/ListItem";
+
+// import ListItem from "./components/ListItem/ListItem";
 import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
 
@@ -22,9 +23,8 @@ interface Product {
 // TODO MOVE TO CUSTOM HOOK
 // TODO FETCH USING SUPABASE OBJECT
 const fetchProducts = async () => {
-  const apiUrl = process.env.EXPO_PUBLIC_API_URL;
-  const apiToken = process.env.EXPO_PUBLIC_API_TOKEN;
-
+  const apiUrl = "";
+  const apiToken = "";
   const response = await fetch(`${apiUrl}/products`, {
     method: "GET",
     headers: {
@@ -32,19 +32,35 @@ const fetchProducts = async () => {
       Authorization: `Bearer ${apiToken}`,
     },
   });
-
   if (!response.ok) {
     throw new Error("Network response was not ok");
   }
-
   const data = await response.json();
+
   return data;
 };
+const deleteProductRequest = async (id: string) => {
+  const apiUrl = "";
+  const apiToken = "";
 
-// TODO MOVE TO CUSTOM HOOK
+  const response = await fetch(`${apiUrl}/products?id=eq.${id}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      apikey: `${apiToken}`,
+      Authorization: `Bearer ${apiToken}`,
+      Prefer: "return=representation",
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to delete product");
+  }
+};
+
 const addProductRequest = async (newProduct: any) => {
-  const apiUrl = process.env.EXPO_PUBLIC_API_URL;
-  const apiToken = process.env.EXPO_PUBLIC_API_TOKEN;
+  const apiUrl = "";
+  const apiToken = "";
   const response = await fetch(`${apiUrl}/products`, {
     method: "POST",
     headers: {
@@ -63,26 +79,6 @@ const addProductRequest = async (newProduct: any) => {
   return response.json();
 };
 
-// TODO MOVE TO CUSTOM HOOK
-const deleteProductRequest = async (id: string) => {
-  const apiUrl = process.env.EXPO_PUBLIC_API_URL;
-  const apiToken = process.env.EXPO_PUBLIC_API_TOKEN;
-
-  const response = await fetch(`${apiUrl}/products?id=eq.${id}`, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-      apikey: `${apiToken}`,
-      Authorization: `Bearer ${apiToken}`,
-      Prefer: "return=representation",
-    },
-  });
-
-  if (!response.ok) {
-    throw new Error("Failed to delete product");
-  }
-};
-
 const Index = () => {
   const [inputValue, setInputValue] = useState("");
   const [listItems, setListItems] = useState<Product[]>([]);
@@ -90,14 +86,17 @@ const Index = () => {
     queryKey: ["products"],
     queryFn: fetchProducts,
   });
+
   const { mutate, error: errorPost } = useMutation({
     mutationFn: addProductRequest,
+  });
+  const { mutate: deleteRequest, error: errorDelete } = useMutation({
+    mutationFn: deleteProductRequest,
   });
   useEffect(() => {
     setListItems(data);
   }, [data]);
 
-  //TODO HANDLE DATA LOADING PROPERLY
   if (!data) {
     return <Text>LOADING DATA...</Text>;
   }
@@ -113,14 +112,17 @@ const Index = () => {
         },
       ];
     });
-    mutate({ id: uuidv4(), name: inputValue });
+    mutate({
+      id: uuidv4(),
+      name: inputValue,
+    });
     setInputValue("");
   };
 
   const handleRemoveProduct = (id: string) => {
     const updatedList = listItems.filter((item) => item.id !== id);
     setListItems(updatedList);
-    deleteProductRequest(id);
+    deleteRequest(id);
   };
 
   const handleInputChange = (text: string) => {
@@ -162,9 +164,6 @@ const Index = () => {
     </SafeAreaView>
   );
 };
-
-export default Index;
-
 const RootPageStyles = StyleSheet.create({
   root: {
     flex: 1,
@@ -176,3 +175,4 @@ const RootPageStyles = StyleSheet.create({
     justifyContent: "space-between",
   },
 });
+export default Index;
