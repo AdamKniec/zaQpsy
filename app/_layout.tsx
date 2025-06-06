@@ -1,8 +1,7 @@
-import { Stack } from "expo-router";
-import { StyleSheet } from "react-native";
-import { StatusBar } from "react-native";
-import { View } from "react-native";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+import { Stack } from "expo-router";
+import { StatusBar, StyleSheet, View } from "react-native";
 
 const queryClient = new QueryClient();
 
