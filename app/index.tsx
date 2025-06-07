@@ -14,30 +14,12 @@ import ListItem from "./components/ListItem/ListItem";
 import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
 import { useFetchProducts } from "./api/useFetchProducts";
+import { useDeleteProduct } from "./api/useDeleteProducts";
 
 interface Product {
   name: string;
   id: string;
 }
-
-const deleteProductRequest = async (id: string) => {
-  const apiUrl = "";
-  const apiToken = "";
-
-  const response = await fetch(`${apiUrl}/products?id=eq.${id}`, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-      apikey: `${apiToken}`,
-      Authorization: `Bearer ${apiToken}`,
-      Prefer: "return=representation",
-    },
-  });
-
-  if (!response.ok) {
-    throw new Error("Failed to delete product");
-  }
-};
 
 const addProductRequest = async (newProduct: any) => {
   const apiUrl = "";
@@ -64,12 +46,10 @@ const Index = () => {
   const [inputValue, setInputValue] = useState("");
   const [listItems, setListItems] = useState<Product[]>([]);
   const { data } = useFetchProducts();
+  const { deleteProduct } = useDeleteProduct();
 
-  const { mutate, error: errorPost } = useMutation({
+  const { mutate } = useMutation({
     mutationFn: addProductRequest,
-  });
-  const { mutate: deleteRequest, error: errorDelete } = useMutation({
-    mutationFn: deleteProductRequest,
   });
 
   useEffect(() => {
@@ -101,7 +81,7 @@ const Index = () => {
   const handleRemoveProduct = (id: string) => {
     const updatedList = listItems.filter((item) => item.id !== id);
     setListItems(updatedList);
-    deleteRequest(id);
+    deleteProduct(id);
   };
 
   const handleInputChange = (text: string) => {
