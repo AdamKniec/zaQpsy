@@ -1,4 +1,3 @@
-import { useMutation } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import {
   Button,
@@ -15,42 +14,19 @@ import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
 import { useFetchProducts } from "./api/useFetchProducts";
 import { useDeleteProduct } from "./api/useDeleteProducts";
+import { useAddProducts } from "./api/useAddProduct";
 
 interface Product {
   name: string;
   id: string;
 }
 
-const addProductRequest = async (newProduct: any) => {
-  const apiUrl = "";
-  const apiToken = "";
-  const response = await fetch(`${apiUrl}/products`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      apikey: `${apiToken}`,
-      Authorization: `Bearer ${apiToken}`,
-      Prefer: "return=representation",
-    },
-    body: JSON.stringify(newProduct),
-  });
-
-  if (!response.ok) {
-    throw new Error("Failed to add product");
-  }
-
-  return response.json();
-};
-
 const Index = () => {
   const [inputValue, setInputValue] = useState("");
   const [listItems, setListItems] = useState<Product[]>([]);
   const { data } = useFetchProducts();
   const { deleteProduct } = useDeleteProduct();
-
-  const { mutate } = useMutation({
-    mutationFn: addProductRequest,
-  });
+  const { addProduct } = useAddProducts();
 
   useEffect(() => {
     setListItems(data);
@@ -71,7 +47,7 @@ const Index = () => {
         },
       ];
     });
-    mutate({
+    addProduct({
       id: uuidv4(),
       name: inputValue,
     });
