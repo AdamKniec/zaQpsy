@@ -2,17 +2,19 @@ import { useEffect, useState } from "react";
 import {
   Button,
   FlatList,
+  Pressable,
   SafeAreaView,
   StyleSheet,
   Text,
   TextInput,
   View,
+  Platform,
 } from "react-native";
 import ListItem from "./components/ListItem/ListItem";
 
 import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
-import { useFetchProducts } from "./api/useFetchProducts";
+import useFetchProducts from "./api/useFetchProducts";
 import { useDeleteProduct } from "./api/useDeleteProducts";
 import { useAddProducts } from "./api/useAddProduct";
 
@@ -66,7 +68,8 @@ const Index = () => {
 
   return (
     <SafeAreaView style={RootPageStyles.root}>
-      <View style={{ gap: "10px" }}>
+      <Text style={{ padding: 20, color: "violet" }}>Lista zakupów</Text>
+      <View style={{ gap: "10px", paddingHorizontal: 20 }}>
         <FlatList
           data={listItems}
           scrollEnabled
@@ -86,15 +89,19 @@ const Index = () => {
         ></FlatList>
       </View>
 
-      <View>
+      <View style={RootPageStyles.form}>
         <TextInput
           placeholder="Dodaj produkt"
-          style={{ color: "white" }}
+          style={RootPageStyles.input}
           value={inputValue}
           placeholderTextColor={"grey"}
           onChangeText={handleInputChange}
         />
-        <Button title="Dodaj" onPress={handleButtonPress} />
+        <Pressable onPress={handleButtonPress} style={RootPageStyles.button}>
+          <View>
+            <Text style={RootPageStyles.buttonLabel}>Dodaj!</Text>
+          </View>
+        </Pressable>
       </View>
     </SafeAreaView>
   );
@@ -102,12 +109,36 @@ const Index = () => {
 const RootPageStyles = StyleSheet.create({
   root: {
     flex: 1,
-    borderWidth: 1,
     width: "100%",
-    backgroundColor: "#201b4a",
-    padding: 20,
-    paddingBottom: 40,
+    maxHeight: "90%",
     justifyContent: "space-between",
+  },
+  form: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    gap: 20,
+  },
+  input: {
+    borderRadius: 10,
+    borderWidth: 1,
+    color: "black",
+    width: "70%",
+    padding: Platform.select({
+      ios: 10,
+    }),
+    paddingLeft: 15,
+  },
+  button: {
+    borderWidth: 1,
+    borderRadius: 10,
+    justifyContent: "center",
+    alignItems: "center",
+    paddingHorizontal: 10,
+    backgroundColor: "blue",
+  },
+  buttonLabel: {
+    color: "white",
   },
 });
 export default Index;

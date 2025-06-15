@@ -1,4 +1,5 @@
 import { Pressable, Text, View, StyleSheet } from "react-native";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 interface ListItemProps {
   productName: string;
@@ -12,12 +13,12 @@ const ListItem = (props: ListItemProps) => {
       <Text style={{ ...Styles.text, ...Styles.shared }}>
         {props.productName}
       </Text>
-      <Pressable>
+      <Pressable style={{ justifyContent: "center" }}>
         <Text
-          style={{ ...Styles.removeButton, ...Styles.shared }}
+          style={{ ...Styles.shared }}
           onPress={() => props.handleRemoveProduct(props.uuid)}
         >
-          X
+          <Ionicons name="checkbox-outline" size={24} color="green" />
         </Text>
       </Pressable>
     </View>
@@ -25,18 +26,22 @@ const ListItem = (props: ListItemProps) => {
 };
 
 const Styles = StyleSheet.create({
-  wrapper: { display: "flex", flexDirection: "row" },
+  wrapper: {
+    display: "flex",
+    flexDirection: "row",
+    borderColor: "#cccccc",
+    borderWidth: 1,
+    borderRadius: 10,
+  },
   text: {
-    borderWidth: 1,
     flex: 1,
+    paddingVertical: 15,
+    fontWeight: "500",
   },
-  removeButton: {
-    borderWidth: 1,
-  },
+
   shared: {
-    color: "white",
+    color: "black",
     padding: 10,
-    borderColor: "white",
   },
 });
 
