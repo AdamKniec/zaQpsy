@@ -19,7 +19,7 @@ const fetchProducts = async () => {
   return data;
 };
 
-export const useFetchProducts = () => {
+const useFetchProducts = () => {
   const { data } = useQuery({
     queryKey: ["products"],
     queryFn: fetchProducts,
@@ -27,3 +27,5 @@ export const useFetchProducts = () => {
 
   return { data };
 };
+
+export default useFetchProducts;
