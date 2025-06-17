@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import {
-  Button,
   FlatList,
   Pressable,
   SafeAreaView,
@@ -118,6 +117,7 @@ const RootPageStyles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     gap: 20,
+    marginTop: 20,
   },
   input: {
     borderRadius: 10,
