@@ -1,5 +1,6 @@
 import { Pressable, Text, View, StyleSheet } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import Styles from "./ListItem.styles";
 
 interface ListItemProps {
   productName: string;
@@ -24,25 +25,5 @@ const ListItem = (props: ListItemProps) => {
     </View>
   );
 };
-
-const Styles = StyleSheet.create({
-  wrapper: {
-    display: "flex",
-    flexDirection: "row",
-    borderColor: "#cccccc",
-    borderWidth: 1,
-    borderRadius: 10,
-  },
-  text: {
-    flex: 1,
-    paddingVertical: 15,
-    fontWeight: "500",
-  },
-
-  shared: {
-    color: "black",
-    padding: 10,
-  },
-});
 
 export default ListItem;
