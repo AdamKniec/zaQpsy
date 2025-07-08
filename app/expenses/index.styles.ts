@@ -1,12 +1,6 @@
-import { StyleSheet, Platform } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 
 const RootPageStyles = StyleSheet.create({
-  root: {
-    flex: 1,
-    width: "100%",
-    maxHeight: "80%",
-    justifyContent: "space-between",
-  },
   form: {
     display: "flex",
     flexDirection: "row",

@@ -1,12 +1,6 @@
 import { View } from "react-native";
-import "react-native-get-random-values";
 import Tile from "./components/Tile/Tile";
-
-//TODO MOVE TO EXTERNAL FILE
-export const paths = {
-  products: "/products",
-  expenses: "/expenses",
-} as const;
+import paths from "./routing";
 
 const Index = () => {
   return (
