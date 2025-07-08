@@ -3,7 +3,6 @@ import { useMutation } from "@tanstack/react-query";
 const deleteProductRequest = async (id: string) => {
   const apiUrl = "";
   const apiToken = "";
-
   const response = await fetch(`${apiUrl}/products?id=eq.${id}`, {
     method: "DELETE",
     headers: {
@@ -19,10 +18,12 @@ const deleteProductRequest = async (id: string) => {
   }
 };
 
-export const useDeleteProduct = () => {
+const useDeleteProduct = () => {
   const { mutate: deleteProduct } = useMutation({
     mutationFn: deleteProductRequest,
   });
 
   return { deleteProduct };
 };
+
+export default useDeleteProduct;

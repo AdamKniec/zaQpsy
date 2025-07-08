@@ -21,7 +21,7 @@ const addProductRequest = async (newProduct: any) => {
   return response.json();
 };
 
-export const useAddProducts = () => {
+const useAddProducts = () => {
   const { mutate: addProduct } = useMutation({
     mutationFn: addProductRequest,
   });
@@ -30,3 +30,5 @@ export const useAddProducts = () => {
     addProduct,
   };
 };
+
+export default useAddProducts;
