@@ -4,7 +4,7 @@ const RootPageStyles = StyleSheet.create({
   root: {
     flex: 1,
     width: "100%",
-    maxHeight: "80%",
+    marginTop: 40,
     justifyContent: "space-between",
   },
   form: {
@@ -13,6 +13,7 @@ const RootPageStyles = StyleSheet.create({
     justifyContent: "center",
     gap: 20,
     marginTop: 20,
+    marginBottom: 20,
   },
   input: {
     borderRadius: 10,
