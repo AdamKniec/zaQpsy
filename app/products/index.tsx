@@ -72,7 +72,7 @@ const Index = () => {
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={{ flex: 1 }}
-      keyboardVerticalOffset={Platform.OS === "ios" ? 50 : 0}
+      keyboardVerticalOffset={Platform.OS === "ios" ? 50 : 50}
     >
       <SafeAreaView style={RootPageStyles.root}>
         <Button title="Strona główna" onPress={() => router.back()} />
