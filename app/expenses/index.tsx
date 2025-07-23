@@ -5,6 +5,8 @@ import {
   View,
   Pressable,
   Button,
+  Platform,
+  KeyboardAvoidingView,
 } from "react-native";
 import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
@@ -67,44 +69,47 @@ const Index = () => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <Text style={{ textAlign: "center", fontSize: 24, fontWeight: "bold" }}>
-        Wydatki
-      </Text>
-      <Button title="Strona główna" onPress={() => router.back()} />
-      <View style={{ height: "80%" }}>
-        <FlatList
-          data={listItems}
-          scrollEnabled
-          ItemSeparatorComponent={() => {
-            return <View style={{ height: 16 }} />;
-          }}
-          renderItem={(expense) => {
-            return (
-              <ListItem
-                productName={expense.item.name}
-                uuid={expense.item.id}
-                handleRemoveProduct={handleRemoveProduct}
-              />
-            );
-          }}
-        />
-      </View>
-      <View style={RootPageStyles.form}>
-        <TextInput
-          placeholder="Dodaj wydatek"
-          style={RootPageStyles.input}
-          value={inputValue}
-          placeholderTextColor={"grey"}
-          onChangeText={handleInputChange}
-        />
-        <Pressable onPress={handleButtonPress} style={RootPageStyles.button}>
-          <View>
-            <Text style={RootPageStyles.buttonLabel}>Dodaj!</Text>
-          </View>
-        </Pressable>
-      </View>
-    </SafeAreaView>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={{ flex: 1 }}
+      keyboardVerticalOffset={Platform.OS === "ios" ? 50 : 50}
+    >
+      <SafeAreaView style={RootPageStyles.root}>
+        <Button title="Strona główna" onPress={() => router.back()} />
+        <View style={{ gap: "10px", paddingHorizontal: 20, height: "75%" }}>
+          <FlatList
+            data={listItems}
+            scrollEnabled
+            ItemSeparatorComponent={() => {
+              return <View style={{ height: 16 }} />;
+            }}
+            renderItem={(expense) => {
+              return (
+                <ListItem
+                  productName={expense.item.name}
+                  uuid={expense.item.id}
+                  handleRemoveProduct={handleRemoveProduct}
+                />
+              );
+            }}
+          />
+        </View>
+        <View style={RootPageStyles.form}>
+          <TextInput
+            placeholder="Dodaj wydatek"
+            style={RootPageStyles.input}
+            value={inputValue}
+            placeholderTextColor={"grey"}
+            onChangeText={handleInputChange}
+          />
+          <Pressable onPress={handleButtonPress} style={RootPageStyles.button}>
+            <View>
+              <Text style={RootPageStyles.buttonLabel}>Dodaj!</Text>
+            </View>
+          </Pressable>
+        </View>
+      </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 };
 
