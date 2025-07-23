@@ -1,24 +1,11 @@
 import { useMutation } from "@tanstack/react-query";
+import api from "../api";
 
 const addProductRequest = async (newProduct: any) => {
-  const apiUrl = "";
-  const apiToken = "";
-  const response = await fetch(`${apiUrl}/products`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      apikey: `${apiToken}`,
-      Authorization: `Bearer ${apiToken}`,
-      Prefer: "return=representation",
-    },
-    body: JSON.stringify(newProduct),
+  const response = await api.post("/products", {
+    ...newProduct,
   });
-
-  if (!response.ok) {
-    throw new Error("Failed to add product");
-  }
-
-  return response.json();
+  return response;
 };
 
 const useAddProducts = () => {

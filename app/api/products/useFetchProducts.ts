@@ -1,22 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
+import api from "../api";
 
 // TODO FETCH USING SUPABASE OBJECT
 const fetchProducts = async () => {
-  const apiUrl = "";
-  const apiToken = "";
-  const response = await fetch(`${apiUrl}/products`, {
-    method: "GET",
-    headers: {
-      apikey: `${apiToken}`,
-      Authorization: `Bearer ${apiToken}`,
-    },
-  });
-  if (!response.ok) {
-    throw new Error("Network response was not ok");
-  }
-  const data = await response.json();
-
-  return data;
+  const response = await api.get("/products");
+  return response.data;
 };
 
 const useFetchProducts = () => {
