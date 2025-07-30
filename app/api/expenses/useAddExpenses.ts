@@ -1,25 +1,13 @@
 import { useMutation } from "@tanstack/react-query";
+import api from "../api";
 
 // TODO GET RID OF ANY
 const addExpenseRequest = async (newExpense: any) => {
-  const apiUrl = "";
-  const apiToken = " ";
-  const response = await fetch(`${apiUrl}/expenses`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      apikey: `${apiToken}`,
-      Authorization: `Bearer ${apiToken}`,
-      Prefer: "return=representation",
-    },
-    body: JSON.stringify(newExpense),
+  const response = await api.post(`/expenses`, {
+    ...newExpense,
   });
 
-  if (!response.ok) {
-    throw new Error("Failed to add expense");
-  }
-
-  return response.json();
+  return response;
 };
 
 const useAddExpenses = () => {
