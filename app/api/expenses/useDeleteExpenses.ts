@@ -1,21 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
+import api from "../api";
 
 const deleteExpenseRequest = async (id: string) => {
-  const apiUrl = "";
-  const apiToken = "";
-  const response = await fetch(`${apiUrl}/expenses?id=eq.${id}`, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-      apikey: `${apiToken}`,
-      Authorization: `Bearer ${apiToken}`,
-      Prefer: "return=representation",
-    },
-  });
-
-  if (!response.ok) {
-    throw new Error("Failed to delete expense");
-  }
+  await api.delete(`/expenses?id=eq.${id}`);
 };
 
 const useDeleteExpense = () => {
