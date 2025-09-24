@@ -75,7 +75,6 @@ const Index = () => {
       keyboardVerticalOffset={Platform.OS === "ios" ? 50 : 50}
     >
       <SafeAreaView style={RootPageStyles.root}>
-        <Button title="Strona główna" onPress={() => router.back()} />
         <View style={{ gap: "10px", paddingHorizontal: 20, height: "75%" }}>
           <FlatList
             data={listItems}

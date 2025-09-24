@@ -10,7 +10,11 @@ export default function RootLayout() {
     <QueryClientProvider client={queryClient}>
       <View style={RootLayoutStyles.root}>
         <StatusBar barStyle="light-content" backgroundColor="#201b4a" />
-        <Stack screenOptions={{ headerShown: false }}></Stack>
+        <Stack>
+          <Stack.Screen name="index" options={{ title: "Kategorie" }} />
+          <Stack.Screen name="products/index" options={{ title: "Produkty" }} />
+          <Stack.Screen name="expenses/index" options={{ title: "Wydatki" }} />
+        </Stack>
       </View>
     </QueryClientProvider>
   );
