@@ -1,13 +1,13 @@
 import axios from "axios";
 
-const apiUrl = "";
-const apiToken = "";
+const API_TOKEN = process.env.EXPO_PUBLIC_API_TOKEN;
+const API_URL = process.env.EXPO_PUBLIC_API_URL;
 
 const api = axios.create({
-  baseURL: apiUrl,
+  baseURL: API_URL,
   headers: {
-    apikey: `${apiToken}`,
-    Authorization: `Bearer ${apiToken}`,
+    apikey: `${API_TOKEN}`,
+    Authorization: `Bearer ${API_TOKEN}`,
     "Content-Type": "application/json",
   },
 });
