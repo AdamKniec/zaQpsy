@@ -46,20 +46,23 @@ const Index = () => {
 
   //todo handle this case properly
   const handleButtonPress = () => {
-    setListItems((prevState) => {
-      return [
-        ...prevState,
-        {
-          id: uuidv4(),
-          name: inputValue,
-        },
-      ];
-    });
-    addProduct({
-      id: uuidv4(),
-      name: inputValue,
-    });
-    setInputValue("");
+    // todo validate in schema
+    if (inputValue.trim().length) {
+      setListItems((prevState) => {
+        return [
+          ...prevState,
+          {
+            id: uuidv4(),
+            name: inputValue,
+          },
+        ];
+      });
+      addProduct({
+        id: uuidv4(),
+        name: inputValue,
+      });
+      setInputValue("");
+    }
   };
 
   const handleRemoveProduct = (id: string) => {
