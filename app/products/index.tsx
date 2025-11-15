@@ -30,7 +30,6 @@ const Index = () => {
   const { data } = useFetchProducts();
   const { addProduct } = useAddProducts();
   const { deleteProduct } = useDeleteProduct();
-  const router = useRouter();
 
   useEffect(() => {
     setListItems(data);
