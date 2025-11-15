@@ -4,7 +4,6 @@ import {
   TextInput,
   View,
   Pressable,
-  Button,
   Platform,
   KeyboardAvoidingView,
 } from "react-native";
@@ -17,8 +16,8 @@ import ListItem from "../components/ListItem/ListItem";
 import { useEffect, useState } from "react";
 import useAddExpenses from "../api/expenses/useAddExpenses";
 import useDeleteExpense from "../api/expenses/useDeleteExpenses";
-import { useRouter } from "expo-router";
 import RootPageStyles from "./index.styles";
+import Modal from "../components/Modal/Modal";
 
 interface Expense {
   name: string;
@@ -29,7 +28,6 @@ const Index = () => {
   const [listItems, setListItems] = useState<Expense[]>([]);
   const { addExpense } = useAddExpenses();
   const { data } = useFetchExpenses();
-  const router = useRouter();
   const { deleteExpense } = useDeleteExpense();
 
   const handleInputChange = (text: string) => {
@@ -109,6 +107,7 @@ const Index = () => {
               <Text style={RootPageStyles.buttonLabel}>Dodaj!</Text>
             </View>
           </Pressable>
+          <Modal />
         </View>
       </SafeAreaView>
     </KeyboardAvoidingView>
