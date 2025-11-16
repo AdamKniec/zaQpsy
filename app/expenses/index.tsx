@@ -4,7 +4,6 @@ import {
   TextInput,
   View,
   Pressable,
-  Button,
   Platform,
   KeyboardAvoidingView,
 } from "react-native";
@@ -19,6 +18,7 @@ import useAddExpenses from "../api/expenses/useAddExpenses";
 import useDeleteExpense from "../api/expenses/useDeleteExpenses";
 import { useRouter } from "expo-router";
 import RootPageStyles from "./index.styles";
+import Modal from "../components/Modal/Modal";
 
 interface Expense {
   name: string;
@@ -31,6 +31,7 @@ const Index = () => {
   const { data } = useFetchExpenses();
   const router = useRouter();
   const { deleteExpense } = useDeleteExpense();
+  const [modalOpen, setModalOpen] = useState(false);
 
   const handleInputChange = (text: string) => {
     setInputValue(text);
@@ -104,11 +105,12 @@ const Index = () => {
             placeholderTextColor={"grey"}
             onChangeText={handleInputChange}
           />
-          <Pressable onPress={handleButtonPress} style={RootPageStyles.button}>
+          <Pressable onPress={() => setModalOpen(true)}>
             <View>
-              <Text style={RootPageStyles.buttonLabel}>Dodaj!</Text>
+              <Text>Toggle Modal</Text>
             </View>
           </Pressable>
+          <Modal modalOpen={modalOpen} setModalOpen={setModalOpen} />
         </View>
       </SafeAreaView>
     </KeyboardAvoidingView>

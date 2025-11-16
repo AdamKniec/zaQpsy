@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   Modal as ModalComponent,
   Pressable,
@@ -8,15 +7,19 @@ import {
 } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
-const Modal = () => {
-  const [modalVisible, setModalVisible] = useState(false);
+interface ModalProps {
+  modalOpen: boolean;
+  setModalOpen: (modalOpen: boolean) => void;
+}
+
+const Modal = ({ modalOpen, setModalOpen }: ModalProps) => {
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.centeredView}>
         <ModalComponent
           animationType="slide"
           transparent={true}
-          visible={modalVisible}
+          visible={modalOpen}
           onRequestClose={() => {
             // TODO HANDLE REQUEST CLOSE
           }}
@@ -26,7 +29,7 @@ const Modal = () => {
               <Text style={styles.modalText}>Hello World</Text>
               <Pressable
                 style={[styles.button, styles.buttonClose]}
-                onPress={() => setModalVisible(!modalVisible)}
+                onPress={() => setModalOpen(!modalOpen)}
               >
                 <Text style={styles.textStyle}>Hide Modal</Text>
               </Pressable>
@@ -45,7 +48,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   modalView: {
-    margin: 20,
+    margin: 10,
+    width: "100%",
+    height: "50%",
+    position: "absolute",
+    bottom: 0,
     backgroundColor: "white",
     borderRadius: 20,
     padding: 35,
