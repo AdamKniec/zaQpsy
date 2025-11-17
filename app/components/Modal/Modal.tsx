@@ -1,11 +1,17 @@
+import RootPageStyles from "@/app/expenses/index.styles";
 import {
   Modal as ModalComponent,
   Pressable,
   StyleSheet,
   Text,
+  TextInput,
   View,
 } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import DateTimePicker, {
+  DateTimePickerAndroid,
+} from "@react-native-community/datetimepicker";
+import { useState } from "react";
 
 interface ModalProps {
   modalOpen: boolean;
@@ -13,6 +19,22 @@ interface ModalProps {
 }
 
 const Modal = ({ modalOpen, setModalOpen }: ModalProps) => {
+  const [date, setDate] = useState<Date>(new Date(1598051730000));
+  const onChange = (event, selectedDate: string) => {
+    const currentDate = selectedDate;
+    setDate(currentDate);
+  };
+  const showMode = (currentMode) => {
+    DateTimePickerAndroid.open({
+      value: date,
+      onChange,
+      mode: currentMode,
+      is24Hour: true,
+    });
+  };
+  const showDatepicker = () => {
+    showMode("date");
+  };
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.centeredView}>
@@ -31,8 +53,14 @@ const Modal = ({ modalOpen, setModalOpen }: ModalProps) => {
                 style={[styles.button, styles.buttonClose]}
                 onPress={() => setModalOpen(!modalOpen)}
               >
-                <Text style={styles.textStyle}>Hide Modal</Text>
+                <Text style={styles.textStyle}>Hide ModxDal</Text>
               </Pressable>
+              {/* TODO EXTRACT THIS TO A SEPARATE COMPONENT */}
+              <View style={{ width: 200 }}>
+                <TextInput placeholder="Za co" style={RootPageStyles.input} />
+                <TextInput placeholder="Ile" />
+                <TextInput placeholder="Data" onPress={showDatepicker} />
+              </View>
             </View>
           </View>
         </ModalComponent>
