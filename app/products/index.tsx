@@ -96,7 +96,21 @@ const Index = () => {
             }}
           />
         </View>
-
+        <View
+          style={{
+            backgroundColor: "blue",
+            marginLeft: 20,
+            borderRadius: "50%",
+            justifyContent: "center",
+            alignItems: "center",
+            width: 30,
+            height: 30,
+          }}
+        >
+          <Text style={{ color: "white", textAlign: "center" }}>
+            {listItems?.length}
+          </Text>
+        </View>
         <View style={RootPageStyles.form}>
           <TextInput
             placeholder="Dodaj produkt"
