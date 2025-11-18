@@ -4,7 +4,6 @@ import {
   TextInput,
   View,
   Pressable,
-  Button,
   Platform,
   KeyboardAvoidingView,
 } from "react-native";
@@ -29,7 +28,6 @@ const Index = () => {
   const [listItems, setListItems] = useState<Expense[]>([]);
   const { addExpense } = useAddExpenses();
   const { data } = useFetchExpenses();
-  const router = useRouter();
   const { deleteExpense } = useDeleteExpense();
 
   const handleInputChange = (text: string) => {
@@ -95,6 +93,21 @@ const Index = () => {
               );
             }}
           />
+        </View>
+        <View
+          style={{
+            backgroundColor: "blue",
+            marginLeft: 20,
+            borderRadius: "50%",
+            justifyContent: "center",
+            alignItems: "center",
+            width: 30,
+            height: 30,
+          }}
+        >
+          <Text style={{ color: "white", textAlign: "center" }}>
+            {listItems?.length}
+          </Text>
         </View>
         <View style={RootPageStyles.form}>
           <TextInput
