@@ -6,12 +6,16 @@ import {
   Text,
   TextInput,
   View,
+  Button,
+  Alert,
 } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import DateTimePicker, {
   DateTimePickerAndroid,
 } from "@react-native-community/datetimepicker";
 import { useState } from "react";
+
+import { useForm, Controller } from "react-hook-form";
 
 interface ModalProps {
   modalOpen: boolean;
@@ -20,6 +24,21 @@ interface ModalProps {
 
 const Modal = ({ modalOpen, setModalOpen }: ModalProps) => {
   const [date, setDate] = useState<Date>(new Date(1598051730000));
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      productName: "",
+      price: "",
+      date: "",
+    },
+  });
+
+  const onSubmit = (data) => console.log(data);
+
   const onChange = (event, selectedDate: string) => {
     const currentDate = selectedDate;
     setDate(currentDate);
@@ -57,9 +76,55 @@ const Modal = ({ modalOpen, setModalOpen }: ModalProps) => {
               </Pressable>
               {/* TODO EXTRACT THIS TO A SEPARATE COMPONENT */}
               <View style={{ width: 200 }}>
-                <TextInput placeholder="Za co" style={RootPageStyles.input} />
-                <TextInput placeholder="Ile" />
-                <TextInput placeholder="Data" onPress={showDatepicker} />
+                {/* <TextInput placeholder="Za co" style={RootPageStyles.input} /> */}
+                <Controller
+                  control={control}
+                  rules={{
+                    maxLength: 100,
+                  }}
+                  render={({ field: { onChange, onBlur, value } }) => (
+                    <TextInput
+                      placeholder="Dodaj produkt"
+                      // onBlur={onBlur}
+                      onChangeText={onChange}
+                      style={RootPageStyles.input}
+                      value={value}
+                      placeholderTextColor={"grey"}
+                    />
+                  )}
+                  name="productName"
+                />
+                {/* <TextInput placeholder="Ile" /> */}
+                <Controller
+                  control={control}
+                  rules={{
+                    maxLength: 100,
+                  }}
+                  render={({ field: { onChange, onBlur, value } }) => (
+                    <TextInput
+                      placeholder="Cena"
+                      // onBlur={onBlur}
+                      onChangeText={onChange}
+                      style={RootPageStyles.input}
+                      value={value}
+                      placeholderTextColor={"grey"}
+                      keyboardType="numeric"
+                    />
+                  )}
+                  name="price"
+                />
+                {/* <TextInput placeholder="Data" onPress={showDatepicker} /> */}
+                <Controller
+                  control={control}
+                  rules={{
+                    maxLength: 100,
+                  }}
+                  render={({ field: { onChange, onBlur, value } }) => (
+                    <TextInput placeholder="Data" onPress={showDatepicker} />
+                  )}
+                  name="price"
+                />
+                <Button title="Submit" onPress={handleSubmit(onSubmit)} />
               </View>
             </View>
           </View>
@@ -69,6 +134,7 @@ const Modal = ({ modalOpen, setModalOpen }: ModalProps) => {
   );
 };
 export default Modal;
+
 const styles = StyleSheet.create({
   centeredView: {
     flex: 1,
