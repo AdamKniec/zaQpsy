@@ -23,8 +23,6 @@ interface ModalProps {
 }
 
 const Modal = ({ modalOpen, setModalOpen }: ModalProps) => {
-  const [date, setDate] = useState<Date>(new Date(1598051730000));
-
   const {
     control,
     handleSubmit,
@@ -33,27 +31,12 @@ const Modal = ({ modalOpen, setModalOpen }: ModalProps) => {
     defaultValues: {
       productName: "",
       price: "",
-      date: "",
+      date: new Date(),
     },
   });
 
   const onSubmit = (data) => console.log(data);
 
-  const onChange = (event, selectedDate: string) => {
-    const currentDate = selectedDate;
-    setDate(currentDate);
-  };
-  const showMode = (currentMode) => {
-    DateTimePickerAndroid.open({
-      value: date,
-      onChange,
-      mode: currentMode,
-      is24Hour: true,
-    });
-  };
-  const showDatepicker = () => {
-    showMode("date");
-  };
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.centeredView}>
@@ -96,6 +79,7 @@ const Modal = ({ modalOpen, setModalOpen }: ModalProps) => {
                 />
                 {/* <TextInput placeholder="Ile" /> */}
                 <Controller
+                  name="price"
                   control={control}
                   rules={{
                     maxLength: 100,
@@ -103,7 +87,6 @@ const Modal = ({ modalOpen, setModalOpen }: ModalProps) => {
                   render={({ field: { onChange, onBlur, value } }) => (
                     <TextInput
                       placeholder="Cena"
-                      // onBlur={onBlur}
                       onChangeText={onChange}
                       style={RootPageStyles.input}
                       value={value}
@@ -111,7 +94,6 @@ const Modal = ({ modalOpen, setModalOpen }: ModalProps) => {
                       keyboardType="numeric"
                     />
                   )}
-                  name="price"
                 />
                 {/* <TextInput placeholder="Data" onPress={showDatepicker} /> */}
                 <Controller
@@ -119,10 +101,24 @@ const Modal = ({ modalOpen, setModalOpen }: ModalProps) => {
                   rules={{
                     maxLength: 100,
                   }}
-                  render={({ field: { onChange, onBlur, value } }) => (
-                    <TextInput placeholder="Data" onPress={showDatepicker} />
-                  )}
-                  name="price"
+                  render={({ field: { onChange, onBlur, value } }) => {
+                    return (
+                      <TextInput
+                        placeholder="Data"
+                        onPress={() => {
+                          DateTimePickerAndroid.open({
+                            value: new Date(value),
+                            onChange: (_, selectedDate) => {
+                              onChange(selectedDate);
+                            },
+                            mode: "date",
+                            is24Hour: true,
+                          });
+                        }}
+                      />
+                    );
+                  }}
+                  name="date"
                 />
                 <Button title="Submit" onPress={handleSubmit(onSubmit)} />
               </View>
