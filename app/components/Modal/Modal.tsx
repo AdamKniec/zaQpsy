@@ -102,9 +102,13 @@ const Modal = ({ modalOpen, setModalOpen }: ModalProps) => {
                     maxLength: 100,
                   }}
                   render={({ field: { onChange, onBlur, value } }) => {
+                    const year = value.getFullYear();
+                    const month = value.getMonth() + 1;
+                    const day = value.getDate();
                     return (
                       <TextInput
                         placeholder="Data"
+                        value={`${day}/${month}/${year}`}
                         onPress={() => {
                           DateTimePickerAndroid.open({
                             value: new Date(value),
