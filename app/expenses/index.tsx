@@ -19,6 +19,7 @@ import useDeleteExpense from "../api/expenses/useDeleteExpenses";
 import { useRouter } from "expo-router";
 import RootPageStyles from "./index.styles";
 import Modal from "../components/Modal/Modal";
+import ExpenseForm from "../components/Forms/ExpenseForm";
 
 interface Expense {
   name: string;
@@ -110,7 +111,9 @@ const Index = () => {
               <Text>Toggle Modal</Text>
             </View>
           </Pressable>
-          <Modal modalOpen={modalOpen} setModalOpen={setModalOpen} />
+          <Modal modalOpen={modalOpen} setModalOpen={setModalOpen}>
+            <ExpenseForm />
+          </Modal>
         </View>
       </SafeAreaView>
     </KeyboardAvoidingView>

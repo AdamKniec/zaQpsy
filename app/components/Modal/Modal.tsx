@@ -1,42 +1,21 @@
-import RootPageStyles from "@/app/expenses/index.styles";
 import {
   Modal as ModalComponent,
   Pressable,
   StyleSheet,
   Text,
-  TextInput,
   View,
-  Button,
-  Alert,
 } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
-import DateTimePicker, {
-  DateTimePickerAndroid,
-} from "@react-native-community/datetimepicker";
-import { useState } from "react";
 
-import { useForm, Controller } from "react-hook-form";
+import { ReactNode } from "react";
 
 interface ModalProps {
   modalOpen: boolean;
   setModalOpen: (modalOpen: boolean) => void;
+  children: ReactNode;
 }
 
-const Modal = ({ modalOpen, setModalOpen }: ModalProps) => {
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    defaultValues: {
-      productName: "",
-      price: "",
-      date: new Date(),
-    },
-  });
-
-  const onSubmit = (data) => console.log(data);
-
+const Modal = ({ modalOpen, setModalOpen, children }: ModalProps) => {
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.centeredView}>
@@ -57,75 +36,7 @@ const Modal = ({ modalOpen, setModalOpen }: ModalProps) => {
               >
                 <Text style={styles.textStyle}>Hide ModxDal</Text>
               </Pressable>
-              {/* TODO EXTRACT THIS TO A SEPARATE COMPONENT */}
-              <View style={{ width: 200 }}>
-                {/* <TextInput placeholder="Za co" style={RootPageStyles.input} /> */}
-                <Controller
-                  control={control}
-                  rules={{
-                    maxLength: 100,
-                  }}
-                  render={({ field: { onChange, onBlur, value } }) => (
-                    <TextInput
-                      placeholder="Dodaj produkt"
-                      // onBlur={onBlur}
-                      onChangeText={onChange}
-                      style={RootPageStyles.input}
-                      value={value}
-                      placeholderTextColor={"grey"}
-                    />
-                  )}
-                  name="productName"
-                />
-                {/* <TextInput placeholder="Ile" /> */}
-                <Controller
-                  name="price"
-                  control={control}
-                  rules={{
-                    maxLength: 100,
-                  }}
-                  render={({ field: { onChange, onBlur, value } }) => (
-                    <TextInput
-                      placeholder="Cena"
-                      onChangeText={onChange}
-                      style={RootPageStyles.input}
-                      value={value}
-                      placeholderTextColor={"grey"}
-                      keyboardType="numeric"
-                    />
-                  )}
-                />
-                {/* <TextInput placeholder="Data" onPress={showDatepicker} /> */}
-                <Controller
-                  control={control}
-                  rules={{
-                    maxLength: 100,
-                  }}
-                  render={({ field: { onChange, onBlur, value } }) => {
-                    const year = value.getFullYear();
-                    const month = value.getMonth() + 1;
-                    const day = value.getDate();
-                    return (
-                      <TextInput
-                        placeholder="Data"
-                        value={`${day}/${month}/${year}`}
-                        onPress={() => {
-                          DateTimePickerAndroid.open({
-                            value: new Date(value),
-                            onChange: (_, selectedDate) => {
-                              onChange(selectedDate);
-                            },
-                            mode: "date",
-                            is24Hour: true,
-                          });
-                        }}
-                      />
-                    );
-                  }}
-                  name="date"
-                />
-                <Button title="Submit" onPress={handleSubmit(onSubmit)} />
-              </View>
+              {children}
             </View>
           </View>
         </ModalComponent>
