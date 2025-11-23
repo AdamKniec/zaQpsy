@@ -1,5 +1,7 @@
+import useAddExpenses from "@/app/api/expenses/useAddExpenses";
 import RootPageStyles from "@/app/expenses/index.styles";
 import { DateTimePickerAndroid } from "@react-native-community/datetimepicker";
+import { v4 as uuidv4 } from "uuid";
 
 import { Controller, useForm } from "react-hook-form";
 import { TextInput, View, Button } from "react-native";
@@ -16,7 +18,15 @@ const ExpenseForm = () => {
       date: new Date(),
     },
   });
-  const onSubmit = (data) => console.log(data);
+  const { addExpense } = useAddExpenses();
+  const onSubmit = (data) => {
+    addExpense({
+      id: uuidv4(),
+      name: data.productName,
+      price: data.price,
+      date: data.date,
+    });
+  };
   return (
     <View style={{ width: 200 }}>
       {/* <TextInput placeholder="Za co" style={RootPageStyles.input} /> */}

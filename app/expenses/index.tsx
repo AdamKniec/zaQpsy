@@ -26,17 +26,12 @@ interface Expense {
   id: string;
 }
 const Index = () => {
-  const [inputValue, setInputValue] = useState("");
   const [listItems, setListItems] = useState<Expense[]>([]);
   const { addExpense } = useAddExpenses();
   const { data } = useFetchExpenses();
   const router = useRouter();
   const { deleteExpense } = useDeleteExpense();
   const [modalOpen, setModalOpen] = useState(false);
-
-  const handleInputChange = (text: string) => {
-    setInputValue(text);
-  };
 
   useEffect(() => {
     setListItems(data);
@@ -45,27 +40,6 @@ const Index = () => {
   if (!data) {
     return <Text>LOADING DATA...</Text>;
   }
-
-  //todo handle this case properly
-  const handleButtonPress = () => {
-    // todo validate in schema
-    if (inputValue.trim().length) {
-      setListItems((prevState) => {
-        return [
-          ...prevState,
-          {
-            id: uuidv4(),
-            name: inputValue,
-          },
-        ];
-      });
-      addExpense({
-        id: uuidv4(),
-        name: inputValue,
-      });
-      setInputValue("");
-    }
-  };
 
   const handleRemoveProduct = (id: string) => {
     const updatedList = listItems.filter((item) => item.id !== id);
@@ -99,13 +73,6 @@ const Index = () => {
           />
         </View>
         <View style={RootPageStyles.form}>
-          <TextInput
-            placeholder="Dodaj wydatek"
-            style={RootPageStyles.input}
-            value={inputValue}
-            placeholderTextColor={"grey"}
-            onChangeText={handleInputChange}
-          />
           <Pressable onPress={() => setModalOpen(true)}>
             <View>
               <Text>Toggle Modal</Text>
