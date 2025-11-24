@@ -1,22 +1,20 @@
 import {
   FlatList,
   Text,
-  TextInput,
   View,
   Pressable,
   Platform,
   KeyboardAvoidingView,
 } from "react-native";
 import "react-native-get-random-values";
-import { v4 as uuidv4 } from "uuid";
 
 import { SafeAreaView } from "react-native-safe-area-context";
 import useFetchExpenses from "../api/expenses/useFetchExpenses";
 import ListItem from "../components/ListItem/ListItem";
 import { useEffect, useState } from "react";
-import useAddExpenses from "../api/expenses/useAddExpenses";
+
 import useDeleteExpense from "../api/expenses/useDeleteExpenses";
-import { useRouter } from "expo-router";
+
 import RootPageStyles from "./index.styles";
 import Modal from "../components/Modal/Modal";
 import ExpenseForm from "../components/Forms/ExpenseForm";
@@ -27,9 +25,8 @@ interface Expense {
 }
 const Index = () => {
   const [listItems, setListItems] = useState<Expense[]>([]);
-  const { addExpense } = useAddExpenses();
   const { data } = useFetchExpenses();
-  const router = useRouter();
+
   const { deleteExpense } = useDeleteExpense();
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -65,6 +62,8 @@ const Index = () => {
               return (
                 <ListItem
                   productName={expense.item.name}
+                  price={expense.item.price}
+                  date={expense.item.date}
                   uuid={expense.item.id}
                   handleRemoveProduct={handleRemoveProduct}
                 />

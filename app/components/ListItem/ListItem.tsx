@@ -13,6 +13,8 @@ const ListItem = (props: ListItemProps) => {
     <View style={Styles.wrapper}>
       <Text style={{ ...Styles.text, ...Styles.shared }}>
         {props.productName}
+        {props.price}
+        {props.date}
       </Text>
       <Pressable style={{ justifyContent: "center" }}>
         <Text
