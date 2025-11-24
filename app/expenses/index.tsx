@@ -30,6 +30,21 @@ const Index = () => {
   const { deleteExpense } = useDeleteExpense();
   const [modalOpen, setModalOpen] = useState(false);
 
+  const formatDate = (date) => {
+    const dajeObj = new Date(date);
+    const year = dajeObj.getFullYear();
+    const month = dajeObj.getUTCMonth() + 1;
+    const day = dajeObj.getUTCDate() + 1;
+
+    const formattedDate = `${day}-${month}-${year}`;
+    // TODO remove this condition after data is migrated
+    // LEGACY DATA ISSUE
+    if (formattedDate === "2-1-1970") {
+      return "Nie ma daty";
+    }
+    return formattedDate;
+  };
+
   useEffect(() => {
     setListItems(data);
   }, [data]);
@@ -59,11 +74,12 @@ const Index = () => {
               return <View style={{ height: 16 }} />;
             }}
             renderItem={(expense) => {
+              formatDate(expense.item.date);
               return (
                 <ListItem
                   productName={expense.item.name}
                   price={expense.item.price}
-                  date={expense.item.date}
+                  date={formatDate(expense.item.date)}
                   uuid={expense.item.id}
                   handleRemoveProduct={handleRemoveProduct}
                 />
