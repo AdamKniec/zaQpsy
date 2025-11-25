@@ -1,9 +1,12 @@
 import {
+  KeyboardAvoidingView,
   Modal as ModalComponent,
+  Platform,
   Pressable,
   StyleSheet,
   Text,
   View,
+  ScrollView,
 } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
@@ -17,31 +20,35 @@ interface ModalProps {
 
 const Modal = ({ modalOpen, setModalOpen, children }: ModalProps) => {
   return (
-    <SafeAreaProvider>
-      <SafeAreaView style={styles.centeredView}>
-        <ModalComponent
-          animationType="slide"
-          transparent={true}
-          visible={modalOpen}
-          onRequestClose={() => {
-            // TODO HANDLE REQUEST CLOSE
-          }}
-        >
-          <View style={styles.centeredView}>
-            <View style={styles.modalView}>
-              <Text style={styles.modalText}>Hello World</Text>
-              <Pressable
-                style={[styles.button, styles.buttonClose]}
-                onPress={() => setModalOpen(!modalOpen)}
-              >
-                <Text style={styles.textStyle}>Hide ModxDal</Text>
-              </Pressable>
-              {children}
+    <SafeAreaView style={styles.centeredView}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={{ flex: 1 }}
+      >
+        <ScrollView style={{ flex: 1 }}>
+          <ModalComponent
+            animationType="slide"
+            transparent={true}
+            visible={modalOpen}
+            onRequestClose={() => {
+              // TODO HANDLE REQUEST CLOSE
+            }}
+          >
+            <View style={styles.centeredView}>
+              <View style={styles.modalView}>
+                <Pressable
+                  style={[styles.button, styles.buttonClose]}
+                  onPress={() => setModalOpen(!modalOpen)}
+                >
+                  <Text style={styles.textStyle}>Zamknij</Text>
+                </Pressable>
+                {children}
+              </View>
             </View>
-          </View>
-        </ModalComponent>
-      </SafeAreaView>
-    </SafeAreaProvider>
+          </ModalComponent>
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 };
 export default Modal;
@@ -56,7 +63,7 @@ const styles = StyleSheet.create({
     margin: 10,
     width: "100%",
     height: "50%",
-    position: "absolute",
+
     bottom: 0,
     backgroundColor: "white",
     borderRadius: 20,

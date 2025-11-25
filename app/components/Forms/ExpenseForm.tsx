@@ -6,14 +6,7 @@ import RNDateTimePicker, {
 import { v4 as uuidv4 } from "uuid";
 
 import { Controller, set, useForm } from "react-hook-form";
-import {
-  TextInput,
-  View,
-  Button,
-  Platform,
-  Pressable,
-  Text,
-} from "react-native";
+import { TextInput, View, Button, Platform } from "react-native";
 import { useState } from "react";
 
 const ExpenseForm = () => {
@@ -40,7 +33,6 @@ const ExpenseForm = () => {
   };
   return (
     <View style={{ width: 200 }}>
-      {/* <TextInput placeholder="Za co" style={RootPageStyles.input} /> */}
       <Controller
         control={control}
         rules={{
@@ -49,7 +41,6 @@ const ExpenseForm = () => {
         render={({ field: { onChange, onBlur, value } }) => (
           <TextInput
             placeholder="Dodaj produkt"
-            // onBlur={onBlur}
             onChangeText={onChange}
             style={RootPageStyles.input}
             value={value}
@@ -58,7 +49,7 @@ const ExpenseForm = () => {
         )}
         name="productName"
       />
-      {/* <TextInput placeholder="Ile" /> */}
+
       <Controller
         name="price"
         control={control}
@@ -76,7 +67,7 @@ const ExpenseForm = () => {
           />
         )}
       />
-      {/* <TextInput placeholder="Data" onPress={showDatepicker} /> */}
+
       {Platform.OS === "android" && (
         <Controller
           control={control}
@@ -115,60 +106,20 @@ const ExpenseForm = () => {
             maxLength: 100,
           }}
           render={({ field: { onChange, onBlur, value } }) => {
-            // const year = value.getFullYear();
-            // const month = value.getMonth() + 1;
-            // const day = value.getDate();
-            // return (
-            //   <View>
-            //     {/* <TextInput
-            //       placeholder="Data"
-            //       value={`${day}/${month}/${year}`}
-            //       onPress={() => {
-            //         setShowIosDatePicker(true);
-            //       }}
-            //     /> */}
-            //     {showIosDatePicker && (
-            //       <RNDateTimePicker
-            //         value={new Date(value)}
-            //         testID="asdasd"
-            //         mode={"date"}
-            //         display="inline"
-            //         style={{ height: 10, width: 10 }}
-            //         // is24Hour={true}
-            //         onChange={(_, selectedDate) => {
-            //           onChange(selectedDate);
-            //         }}
-            //       />
-            //     )}
-            //   </View>
-            // );
             return (
               <>
-                <Pressable
-                  onPress={() => setShowIosDatePicker(true)}
-                  style={{
-                    padding: 14,
-                    borderWidth: 1,
-                    borderColor: "#ccc",
-                    borderRadius: 8,
+                <RNDateTimePicker
+                  mode="date"
+                  display="default"
+                  value={value || new Date()}
+                  onChange={(event, selectedDate) => {
+                    setShowIosDatePicker(false);
+
+                    if (event.type === "dismissed") return;
+
+                    onChange(selectedDate);
                   }}
-                >
-                  <Text>KLIK</Text>
-                </Pressable>
-                {showIosDatePicker && (
-                  <RNDateTimePicker
-                    mode="date"
-                    display="default"
-                    value={value || new Date()}
-                    onChange={(event, selectedDate) => {
-                      setShowIosDatePicker(false);
-
-                      if (event.type === "dismissed") return;
-
-                      onChange(selectedDate);
-                    }}
-                  />
-                )}
+                />
               </>
             );
           }}
