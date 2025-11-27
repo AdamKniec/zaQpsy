@@ -22,6 +22,8 @@ import ExpenseForm from "../components/Forms/ExpenseForm";
 interface Expense {
   name: string;
   id: string;
+  date: string;
+  price: number;
 }
 const Index = () => {
   const [listItems, setListItems] = useState<Expense[]>([]);
@@ -30,7 +32,7 @@ const Index = () => {
   const { deleteExpense } = useDeleteExpense();
   const [modalOpen, setModalOpen] = useState(false);
 
-  const formatDate = (date) => {
+  const formatDate = (date: string) => {
     const dajeObj = new Date(date);
     const year = dajeObj.getFullYear();
     const month = dajeObj.getUTCMonth() + 1;
