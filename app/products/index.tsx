@@ -18,6 +18,7 @@ import useDeleteProduct from "../api/products/useDeleteProducts";
 import useAddProducts from "../api/products/useAddProduct";
 import useFetchProducts from "../api/products/useFetchProducts";
 import RootPageStyles from "./index.styles";
+import { useForm, Controller } from "react-hook-form";
 
 interface Product {
   name: string;

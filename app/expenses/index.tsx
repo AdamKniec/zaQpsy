@@ -1,37 +1,50 @@
 import {
   FlatList,
   Text,
-  TextInput,
   View,
   Pressable,
   Platform,
   KeyboardAvoidingView,
 } from "react-native";
 import "react-native-get-random-values";
-import { v4 as uuidv4 } from "uuid";
 
 import { SafeAreaView } from "react-native-safe-area-context";
 import useFetchExpenses from "../api/expenses/useFetchExpenses";
 import ListItem from "../components/ListItem/ListItem";
 import { useEffect, useState } from "react";
-import useAddExpenses from "../api/expenses/useAddExpenses";
+
 import useDeleteExpense from "../api/expenses/useDeleteExpenses";
-import { useRouter } from "expo-router";
+
 import RootPageStyles from "./index.styles";
+import Modal from "../components/Modal/Modal";
+import ExpenseForm from "../components/Forms/ExpenseForm";
 
 interface Expense {
   name: string;
   id: string;
+  date: string;
+  price: number;
 }
 const Index = () => {
-  const [inputValue, setInputValue] = useState("");
   const [listItems, setListItems] = useState<Expense[]>([]);
-  const { addExpense } = useAddExpenses();
   const { data } = useFetchExpenses();
-  const { deleteExpense } = useDeleteExpense();
 
-  const handleInputChange = (text: string) => {
-    setInputValue(text);
+  const { deleteExpense } = useDeleteExpense();
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const formatDate = (date: string) => {
+    const dajeObj = new Date(date);
+    const year = dajeObj.getFullYear();
+    const month = dajeObj.getUTCMonth() + 1;
+    const day = dajeObj.getUTCDate() + 1;
+
+    const formattedDate = `${day}-${month}-${year}`;
+    // TODO remove this condition after data is migrated
+    // LEGACY DATA ISSUE
+    if (formattedDate === "2-1-1970") {
+      return "Nie ma daty";
+    }
+    return formattedDate;
   };
 
   useEffect(() => {
@@ -41,27 +54,6 @@ const Index = () => {
   if (!data) {
     return <Text>LOADING DATA...</Text>;
   }
-
-  //todo handle this case properly
-  const handleButtonPress = () => {
-    // todo validate in schema
-    if (inputValue.trim().length) {
-      setListItems((prevState) => {
-        return [
-          ...prevState,
-          {
-            id: uuidv4(),
-            name: inputValue,
-          },
-        ];
-      });
-      addExpense({
-        id: uuidv4(),
-        name: inputValue,
-      });
-      setInputValue("");
-    }
-  };
 
   const handleRemoveProduct = (id: string) => {
     const updatedList = listItems.filter((item) => item.id !== id);
@@ -84,9 +76,12 @@ const Index = () => {
               return <View style={{ height: 16 }} />;
             }}
             renderItem={(expense) => {
+              formatDate(expense.item.date);
               return (
                 <ListItem
                   productName={expense.item.name}
+                  price={expense.item.price}
+                  date={formatDate(expense.item.date)}
                   uuid={expense.item.id}
                   handleRemoveProduct={handleRemoveProduct}
                 />
@@ -110,18 +105,14 @@ const Index = () => {
           </Text>
         </View>
         <View style={RootPageStyles.form}>
-          <TextInput
-            placeholder="Dodaj wydatek"
-            style={RootPageStyles.input}
-            value={inputValue}
-            placeholderTextColor={"grey"}
-            onChangeText={handleInputChange}
-          />
-          <Pressable onPress={handleButtonPress} style={RootPageStyles.button}>
+          <Pressable onPress={() => setModalOpen(true)}>
             <View>
-              <Text style={RootPageStyles.buttonLabel}>Dodaj!</Text>
+              <Text>DODAJ!</Text>
             </View>
           </Pressable>
+          <Modal modalOpen={modalOpen} setModalOpen={setModalOpen}>
+            <ExpenseForm />
+          </Modal>
         </View>
       </SafeAreaView>
     </KeyboardAvoidingView>
