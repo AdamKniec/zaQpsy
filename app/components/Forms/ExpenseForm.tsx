@@ -6,7 +6,7 @@ import RNDateTimePicker, {
 import { v4 as uuidv4 } from "uuid";
 
 import { Controller, set, useForm } from "react-hook-form";
-import { TextInput, View, Button, Platform } from "react-native";
+import { TextInput, View, Button, Platform, Keyboard } from "react-native";
 import { useState } from "react";
 
 const ExpenseForm = () => {
@@ -24,6 +24,7 @@ const ExpenseForm = () => {
   });
   const { addExpense } = useAddExpenses();
   const onSubmit = (data) => {
+    Keyboard.dismiss();
     addExpense({
       id: uuidv4(),
       name: data.productName,
