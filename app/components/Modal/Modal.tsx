@@ -8,7 +8,7 @@ import {
   View,
   ScrollView,
 } from "react-native";
-import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 import { ReactNode } from "react";
 
@@ -25,7 +25,7 @@ const Modal = ({ modalOpen, setModalOpen, children }: ModalProps) => {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={{ flex: 1 }}
       >
-        <ScrollView style={{ flex: 1 }}>
+        <ScrollView style={{ flex: 1 }} keyboardShouldPersistTaps="handled">
           <ModalComponent
             animationType="slide"
             transparent={true}
