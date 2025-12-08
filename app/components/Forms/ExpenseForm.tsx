@@ -1,16 +1,13 @@
 import useAddExpenses from "@/app/api/expenses/useAddExpenses";
 import RootPageStyles from "@/app/expenses/index.styles";
-import RNDateTimePicker, {
-  DateTimePickerAndroid,
-} from "@react-native-community/datetimepicker";
 import { v4 as uuidv4 } from "uuid";
-
-import { Controller, set, useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { TextInput, View, Button, Platform, Keyboard } from "react-native";
-import { useState } from "react";
+
+import DatePickerIOS from "./DatePickerIOS";
+import DatePickerAndroid from "./DatePickerAndroid";
 
 const ExpenseForm = () => {
-  const [showIosDatePicker, setShowIosDatePicker] = useState(true);
   const {
     control,
     handleSubmit,
@@ -23,6 +20,7 @@ const ExpenseForm = () => {
     },
   });
   const { addExpense } = useAddExpenses();
+  // @ts-expect-error TODO ADD TS TYPE TO DATA
   const onSubmit = (data) => {
     Keyboard.dismiss();
     addExpense({
@@ -39,7 +37,7 @@ const ExpenseForm = () => {
         rules={{
           maxLength: 100,
         }}
-        render={({ field: { onChange, onBlur, value } }) => (
+        render={({ field: { onChange, value } }) => (
           <TextInput
             placeholder="Dodaj produkt"
             onChangeText={onChange}
@@ -50,14 +48,13 @@ const ExpenseForm = () => {
         )}
         name="productName"
       />
-
       <Controller
         name="price"
         control={control}
         rules={{
           maxLength: 100,
         }}
-        render={({ field: { onChange, onBlur, value } }) => (
+        render={({ field: { onChange, value } }) => (
           <TextInput
             placeholder="Cena"
             onChangeText={onChange}
@@ -68,65 +65,10 @@ const ExpenseForm = () => {
           />
         )}
       />
-
-      {Platform.OS === "android" && (
-        <Controller
-          control={control}
-          rules={{
-            maxLength: 100,
-          }}
-          render={({ field: { onChange, onBlur, value } }) => {
-            const year = value.getFullYear();
-            const month = value.getMonth() + 1;
-            const day = value.getDate();
-            return (
-              <TextInput
-                placeholder="Data"
-                value={`${day}/${month}/${year}`}
-                onPress={() => {
-                  DateTimePickerAndroid.open({
-                    value: new Date(value),
-                    onChange: (_, selectedDate) => {
-                      onChange(selectedDate);
-                    },
-                    mode: "date",
-                    is24Hour: true,
-                  });
-                }}
-              />
-            );
-          }}
-          name="date"
-        />
-      )}
-      {Platform.OS === "ios" && (
-        <Controller
-          control={control}
-          name="date"
-          rules={{
-            maxLength: 100,
-          }}
-          render={({ field: { onChange, onBlur, value } }) => {
-            return (
-              <>
-                <RNDateTimePicker
-                  mode="date"
-                  display="default"
-                  value={value || new Date()}
-                  onChange={(event, selectedDate) => {
-                    setShowIosDatePicker(false);
-
-                    if (event.type === "dismissed") return;
-
-                    onChange(selectedDate);
-                  }}
-                />
-              </>
-            );
-          }}
-        />
-      )}
-
+      {/* @ts-expect-error TODO FIX CONTROL TYPE */}
+      {Platform.OS === "android" && <DatePickerAndroid control={control} />}
+      {/* @ts-expect-error TODO FIX TS ISSUE */}
+      {Platform.OS === "ios" && <DatePickerIOS control={control} />}
       <Button title="Submit" onPress={handleSubmit(onSubmit)} />
     </View>
   );
