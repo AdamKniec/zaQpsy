@@ -1,6 +1,5 @@
 import { useRouter } from "expo-router";
 import {
-  Button,
   Text,
   View,
   SafeAreaView,
@@ -10,7 +9,7 @@ import {
   Pressable,
   Platform,
 } from "react-native";
-import ListItem from "../components/ListItem/ListItem";
+
 import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
 import { useEffect, useState } from "react";
@@ -18,7 +17,7 @@ import useDeleteProduct from "../api/products/useDeleteProducts";
 import useAddProducts from "../api/products/useAddProduct";
 import useFetchProducts from "../api/products/useFetchProducts";
 import RootPageStyles from "./index.styles";
-import { useForm, Controller } from "react-hook-form";
+import ListItem from "./components/ListItem/ListItem";
 
 interface Product {
   name: string;
