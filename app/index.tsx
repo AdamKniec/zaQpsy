@@ -1,17 +1,10 @@
-import { View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import Tile from "./components/Tile/Tile";
 import paths from "./routing";
 
 const Index = () => {
   return (
-    <View
-      style={{
-        flex: 1,
-        flexDirection: "row",
-        justifyContent: "center",
-        gap: 10,
-      }}
-    >
+    <View style={Styles.wrapper}>
       <Tile label="Produkty" path={paths.products} />
       <Tile label="Wydatki" path={paths.expenses} />
     </View>
@@ -19,3 +12,12 @@ const Index = () => {
 };
 
 export default Index;
+
+const Styles = StyleSheet.create({
+  wrapper: {
+    justifyContent: "center",
+    flex: 1,
+    alignItems: "center",
+    gap: 20,
+  },
+});

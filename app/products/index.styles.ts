@@ -18,7 +18,7 @@ const RootPageStyles = StyleSheet.create({
   input: {
     borderRadius: 10,
     borderWidth: 1,
-    color: "black",
+    color: "#fff",
     width: "70%",
     padding: Platform.select({
       ios: 10,
@@ -34,7 +34,7 @@ const RootPageStyles = StyleSheet.create({
     backgroundColor: "blue",
   },
   buttonLabel: {
-    color: "white",
+    color: "#fff",
   },
 });
 

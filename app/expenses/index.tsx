@@ -107,7 +107,7 @@ const Index = () => {
         <View style={RootPageStyles.form}>
           <Pressable onPress={() => setModalOpen(true)}>
             <View>
-              <Text>DODAJ!</Text>
+              <Text style={{ color: "#fff" }}>DODAJ!</Text>
             </View>
           </Pressable>
           <Modal modalOpen={modalOpen} setModalOpen={setModalOpen}>

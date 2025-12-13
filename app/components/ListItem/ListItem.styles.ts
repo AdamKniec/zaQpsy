@@ -15,7 +15,7 @@ const Styles = StyleSheet.create({
   },
 
   shared: {
-    color: "black",
+    color: "#fff",
     padding: 10,
   },
 });
