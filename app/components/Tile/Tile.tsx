@@ -14,7 +14,9 @@ const Tile = (props: TileProps) => {
     // TODO FIX TS ISSUE
     <Pressable onPress={() => router.navigate(props.path)} style={Styles.main}>
       <View>
-        <Text style={{ textAlign: "center" }}>{props.label}</Text>
+        <Text style={{ textAlign: "center", color: "#f6f7f8" }}>
+          {props.label}
+        </Text>
       </View>
     </Pressable>
   );
