@@ -9,12 +9,12 @@ const fetchExpenses = async () => {
 };
 
 const useFetchExpenses = () => {
-  const { data } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["expenses"],
     queryFn: fetchExpenses,
   });
 
-  return { data };
+  return { data, isLoading };
 };
 
 export default useFetchExpenses;

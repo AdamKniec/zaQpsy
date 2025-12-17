@@ -1,4 +1,3 @@
-import { useRouter } from "expo-router";
 import {
   Text,
   View,
@@ -8,6 +7,7 @@ import {
   TextInput,
   Pressable,
   Platform,
+  ActivityIndicator,
 } from "react-native";
 
 import "react-native-get-random-values";
@@ -27,19 +27,20 @@ interface Product {
 const Index = () => {
   const [listItems, setListItems] = useState<Product[]>([]);
   const [inputValue, setInputValue] = useState("");
-  const { data } = useFetchProducts();
+  const { data, isLoading } = useFetchProducts();
   const { addProduct } = useAddProducts();
   const { deleteProduct } = useDeleteProduct();
-  const router = useRouter();
 
   useEffect(() => {
     setListItems(data);
   }, [data]);
-
-  if (!data) {
-    return <Text>LOADING DATA...</Text>;
+  if (isLoading) {
+    return (
+      <View style={RootPageStyles.loader}>
+        <ActivityIndicator color={"#fff"} size={"large"} />
+      </View>
+    );
   }
-
   const handleInputChange = (text: string) => {
     setInputValue(text);
   };

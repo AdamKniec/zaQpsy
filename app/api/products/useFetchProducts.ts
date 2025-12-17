@@ -8,12 +8,12 @@ const fetchProducts = async () => {
 };
 
 const useFetchProducts = () => {
-  const { data } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["products"],
     queryFn: fetchProducts,
   });
 
-  return { data };
+  return { data, isLoading };
 };
 
 export default useFetchProducts;
