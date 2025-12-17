@@ -36,6 +36,11 @@ const RootPageStyles = StyleSheet.create({
   buttonLabel: {
     color: "#fff",
   },
+  loader: {
+    justifyContent: "center",
+    alignItems: "center",
+    flex: 1,
+  },
 });
 
 export default RootPageStyles;

@@ -5,6 +5,7 @@ import {
   Pressable,
   Platform,
   KeyboardAvoidingView,
+  ActivityIndicator,
 } from "react-native";
 import "react-native-get-random-values";
 
@@ -27,7 +28,7 @@ interface Expense {
 }
 const Index = () => {
   const [listItems, setListItems] = useState<Expense[]>([]);
-  const { data } = useFetchExpenses();
+  const { data, isLoading } = useFetchExpenses();
 
   const { deleteExpense } = useDeleteExpense();
   const [modalOpen, setModalOpen] = useState(false);
@@ -51,8 +52,12 @@ const Index = () => {
     setListItems(data);
   }, [data]);
 
-  if (!data) {
-    return <Text>LOADING DATA...</Text>;
+  if (isLoading) {
+    return (
+      <View style={RootPageStyles.loader}>
+        <ActivityIndicator color={"#fff"} size={"large"} />
+      </View>
+    );
   }
 
   const handleRemoveProduct = (id: string) => {
