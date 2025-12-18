@@ -1,9 +1,10 @@
+import { ControlProp } from "@/app/expenses/types";
 import { DateTimePickerAndroid } from "@react-native-community/datetimepicker";
-import { Control, Controller } from "react-hook-form";
+import { Controller } from "react-hook-form";
 import { TextInput } from "react-native";
 
 interface DatePickerAndroidProps {
-  control: Control;
+  control: ControlProp;
 }
 
 const DatePickerAndroid = (props: DatePickerAndroidProps) => {

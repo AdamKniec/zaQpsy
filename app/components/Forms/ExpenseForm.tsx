@@ -65,9 +65,9 @@ const ExpenseForm = () => {
           />
         )}
       />
-      {/* @ts-expect-error TODO FIX CONTROL TYPE */}
+
       {Platform.OS === "android" && <DatePickerAndroid control={control} />}
-      {/* @ts-expect-error TODO FIX TS ISSUE */}
+
       {Platform.OS === "ios" && <DatePickerIOS control={control} />}
       <Button title="Submit" onPress={handleSubmit(onSubmit)} />
     </View>
