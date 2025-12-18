@@ -1,13 +1,14 @@
+import { ControlProp } from "@/app/expenses/types";
 import RNDateTimePicker from "@react-native-community/datetimepicker";
 import { useState } from "react";
-import { Control, Controller } from "react-hook-form";
+import { Controller } from "react-hook-form";
 
 interface DatePickerIOSProps {
-  control: Control;
+  control: ControlProp;
 }
 
 const DatePickerIOS = (props: DatePickerIOSProps) => {
-  const [showIosDatePicker, setShowIosDatePicker] = useState(true);
+  const [_, setShowIosDatePicker] = useState(true);
   return (
     <Controller
       control={props.control}
