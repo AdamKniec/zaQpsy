@@ -40,7 +40,7 @@ const Modal = ({ modalOpen, setModalOpen, children }: ModalProps) => {
                   style={[styles.button, styles.buttonClose]}
                   onPress={() => setModalOpen(!modalOpen)}
                 >
-                  <Text style={styles.textStyle}>Zamknij</Text>
+                  <Text style={styles.textStyle}>X</Text>
                 </Pressable>
                 {children}
               </View>
@@ -62,9 +62,9 @@ const styles = StyleSheet.create({
   modalView: {
     margin: 10,
     width: "100%",
-    height: "50%",
-
     bottom: 0,
+    position: "absolute",
+    height: "35%",
     backgroundColor: "white",
     borderRadius: 20,
     padding: 35,
@@ -88,6 +88,10 @@ const styles = StyleSheet.create({
   },
   buttonClose: {
     backgroundColor: "#2196F3",
+    position: "absolute",
+    right: 10,
+    top: 10,
+    borderRadius: 0,
   },
   textStyle: {
     color: "white",

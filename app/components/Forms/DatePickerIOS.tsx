@@ -2,6 +2,7 @@ import { ControlProp } from "@/app/expenses/types";
 import RNDateTimePicker from "@react-native-community/datetimepicker";
 import { useState } from "react";
 import { Controller } from "react-hook-form";
+import { View } from "react-native";
 
 interface DatePickerIOSProps {
   control: ControlProp;
@@ -19,18 +20,26 @@ const DatePickerIOS = (props: DatePickerIOSProps) => {
       render={({ field: { onChange, value } }) => {
         return (
           <>
-            <RNDateTimePicker
-              mode="date"
-              display="default"
-              value={value || new Date()}
-              onChange={(event, selectedDate) => {
-                setShowIosDatePicker(false);
+            <View style={{ width: "auto", borderWidth: 1 }}>
+              <RNDateTimePicker
+                mode="date"
+                style={{
+                  backgroundColor: "#FFFFFF",
+                  width: "100%",
+                  borderWidth: 1,
+                  borderRadius: 10,
+                }}
+                display="default"
+                value={value || new Date()}
+                onChange={(event, selectedDate) => {
+                  setShowIosDatePicker(false);
 
-                if (event.type === "dismissed") return;
+                  if (event.type === "dismissed") return;
 
-                onChange(selectedDate);
-              }}
-            />
+                  onChange(selectedDate);
+                }}
+              />
+            </View>
           </>
         );
       }}

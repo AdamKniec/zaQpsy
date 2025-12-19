@@ -20,6 +20,7 @@ const DatePickerAndroid = (props: DatePickerAndroidProps) => {
         const day = value.getDate();
         return (
           <TextInput
+            style={{ borderWidth: 1, borderRadius: 10 }}
             placeholder="Data"
             value={`${day}/${month}/${year}`}
             onPress={() => {

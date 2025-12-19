@@ -19,7 +19,7 @@ const RootPageStyles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 1,
     color: "black",
-    width: "70%",
+    width: "100%",
     padding: Platform.select({
       ios: 10,
     }),
