@@ -31,7 +31,7 @@ const ExpenseForm = () => {
     });
   };
   return (
-    <View style={{ width: 200 }}>
+    <View style={{ width: 200, gap: 10 }}>
       <Controller
         control={control}
         rules={{
