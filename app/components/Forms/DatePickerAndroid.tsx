@@ -1,4 +1,4 @@
-import { ControlProp } from "@/app/expenses/types";
+import { ControlProp } from "@/app/types/expenses.types";
 import { DateTimePickerAndroid } from "@react-native-community/datetimepicker";
 import { Controller } from "react-hook-form";
 import { TextInput } from "react-native";
