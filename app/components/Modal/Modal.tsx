@@ -7,6 +7,8 @@ import {
   Text,
   View,
   ScrollView,
+  TouchableWithoutFeedback,
+  Keyboard,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -18,21 +20,22 @@ interface ModalProps {
   children: ReactNode;
 }
 
+// TODO REVIEW THE COMPONENT ORDER AND STRUCTURE + STYLES
 const Modal = ({ modalOpen, setModalOpen, children }: ModalProps) => {
   return (
-    <SafeAreaView style={styles.centeredView}>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={{ flex: 1 }}
-      >
-        <ScrollView style={{ flex: 1 }} keyboardShouldPersistTaps="handled">
-          <ModalComponent
-            animationType="slide"
-            transparent={true}
-            visible={modalOpen}
-            onRequestClose={() => {
-              // TODO HANDLE REQUEST CLOSE
-            }}
+    <ModalComponent
+      animationType="slide"
+      transparent={true}
+      visible={modalOpen}
+      onRequestClose={() => {
+        // TODO HANDLE REQUEST CLOSE
+      }}
+    >
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+        <SafeAreaView style={styles.centeredView}>
+          <KeyboardAvoidingView
+            behavior={Platform.OS === "ios" ? "padding" : "height"}
+            style={{ flex: 1 }}
           >
             <View style={styles.centeredView}>
               <View style={styles.modalView}>
@@ -42,13 +45,15 @@ const Modal = ({ modalOpen, setModalOpen, children }: ModalProps) => {
                 >
                   <Text style={styles.textStyle}>X</Text>
                 </Pressable>
-                {children}
+                <ScrollView keyboardShouldPersistTaps="handled">
+                  {children}
+                </ScrollView>
               </View>
             </View>
-          </ModalComponent>
-        </ScrollView>
-      </KeyboardAvoidingView>
-    </SafeAreaView>
+          </KeyboardAvoidingView>
+        </SafeAreaView>
+      </TouchableWithoutFeedback>
+    </ModalComponent>
   );
 };
 export default Modal;
@@ -56,20 +61,18 @@ export default Modal;
 const styles = StyleSheet.create({
   centeredView: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
   },
   modalView: {
-    margin: 10,
-    width: "100%",
     bottom: 0,
     position: "absolute",
-    height: "35%",
+    height: 260,
     backgroundColor: "white",
+    width: "100%",
     borderRadius: 20,
     padding: 35,
     alignItems: "center",
     shadowColor: "#000",
+
     shadowOffset: {
       width: 0,
       height: 2,
