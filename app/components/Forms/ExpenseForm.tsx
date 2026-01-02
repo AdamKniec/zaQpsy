@@ -9,22 +9,22 @@ import { TextInput, View, Button, Platform, Keyboard } from "react-native";
 import DatePickerIOS from "./DatePickerIOS";
 import DatePickerAndroid from "./DatePickerAndroid";
 
-const TestSchema = z.object({
+const addExpenseSchema = z.object({
   productName: z.string().nonempty("Pole wymagane!"),
   price: z.string().nonempty("Pole wymagane"),
   date: z.coerce.date({ message: "Pole wymagane" }),
 });
-type TestSchemaType = z.infer<typeof TestSchema>;
+type AddExpenseSchemaType = z.infer<typeof addExpenseSchema>;
 
 const ExpenseForm = () => {
-  const { control, handleSubmit, formState } = useForm<TestSchemaType>({
+  const { control, handleSubmit, formState } = useForm<AddExpenseSchemaType>({
     defaultValues: {
       productName: "",
       price: "",
       date: new Date(),
     },
 
-    resolver: zodResolver(TestSchema),
+    resolver: zodResolver(addExpenseSchema),
   });
 
   const { addExpense } = useAddExpenses();
