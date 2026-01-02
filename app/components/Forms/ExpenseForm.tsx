@@ -2,23 +2,31 @@ import useAddExpenses from "@/app/api/expenses/useAddExpenses";
 import RootPageStyles from "@/app/expenses/index.styles";
 import { v4 as uuidv4 } from "uuid";
 import { Controller, useForm } from "react-hook-form";
+import * as z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { TextInput, View, Button, Platform, Keyboard } from "react-native";
 
 import DatePickerIOS from "./DatePickerIOS";
 import DatePickerAndroid from "./DatePickerAndroid";
 
+const addExpenseSchema = z.object({
+  productName: z.string().nonempty("Pole wymagane!"),
+  price: z.string().nonempty("Pole wymagane"),
+  date: z.coerce.date({ message: "Pole wymagane" }),
+});
+type AddExpenseSchemaType = z.infer<typeof addExpenseSchema>;
+
 const ExpenseForm = () => {
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
+  const { control, handleSubmit, formState } = useForm<AddExpenseSchemaType>({
     defaultValues: {
       productName: "",
       price: "",
       date: new Date(),
     },
+
+    resolver: zodResolver(addExpenseSchema),
   });
+
   const { addExpense } = useAddExpenses();
   // @ts-expect-error TODO ADD TS TYPE TO DATA
   const onSubmit = (data) => {
@@ -30,13 +38,11 @@ const ExpenseForm = () => {
       date: data.date,
     });
   };
+
   return (
     <View style={{ width: 200, gap: 10 }}>
       <Controller
         control={control}
-        rules={{
-          maxLength: 100,
-        }}
         render={({ field: { onChange, value } }) => (
           <TextInput
             placeholder="Dodaj produkt"
@@ -51,9 +57,6 @@ const ExpenseForm = () => {
       <Controller
         name="price"
         control={control}
-        rules={{
-          maxLength: 100,
-        }}
         render={({ field: { onChange, value } }) => (
           <TextInput
             placeholder="Cena"
@@ -69,7 +72,11 @@ const ExpenseForm = () => {
       {Platform.OS === "android" && <DatePickerAndroid control={control} />}
 
       {Platform.OS === "ios" && <DatePickerIOS control={control} />}
-      <Button title="Submit" onPress={handleSubmit(onSubmit)} />
+      <Button
+        title="Submit"
+        onPress={handleSubmit(onSubmit)}
+        disabled={!formState.isValid}
+      />
     </View>
   );
 };
