@@ -30,18 +30,14 @@ const ExpenseForm = () => {
   const { addExpense } = useAddExpenses();
   // @ts-expect-error TODO ADD TS TYPE TO DATA
   const onSubmit = (data) => {
-    console.log("formState", formState);
-    console.log("isValid", formState.isValid);
-    console.log("errors", formState.errors);
     Keyboard.dismiss();
-    // addExpense({
-    //   id: uuidv4(),
-    //   name: data.productName,
-    //   price: data.price,
-    //   date: data.date,
-    // });
+    addExpense({
+      id: uuidv4(),
+      name: data.productName,
+      price: data.price,
+      date: data.date,
+    });
   };
-  console.log("errors", formState.errors);
 
   return (
     <View style={{ width: 200, gap: 10 }}>
