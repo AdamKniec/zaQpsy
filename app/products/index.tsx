@@ -18,6 +18,7 @@ import useAddProducts from "../api/products/useAddProduct";
 import useFetchProducts from "../api/products/useFetchProducts";
 import RootPageStyles from "./index.styles";
 import ListItem from "./components/ListItem/ListItem";
+import ItemsCounter from "../components/ItemsCounter/ItemsCounter";
 
 interface Product {
   name: string;
@@ -97,21 +98,8 @@ const Index = () => {
             }}
           />
         </View>
-        <View
-          style={{
-            backgroundColor: "blue",
-            marginLeft: 20,
-            borderRadius: "50%",
-            justifyContent: "center",
-            alignItems: "center",
-            width: 30,
-            height: 30,
-          }}
-        >
-          <Text style={{ color: "white", textAlign: "center" }}>
-            {listItems?.length}
-          </Text>
-        </View>
+
+        {listItems && <ItemsCounter value={listItems.length} />}
         <View style={RootPageStyles.form}>
           <TextInput
             placeholder="Dodaj produkt"
