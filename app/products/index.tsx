@@ -1,13 +1,12 @@
 import {
-  Text,
   View,
   SafeAreaView,
   KeyboardAvoidingView,
   FlatList,
   TextInput,
-  Pressable,
   Platform,
   ActivityIndicator,
+  Button,
 } from "react-native";
 
 import "react-native-get-random-values";
@@ -22,11 +21,6 @@ import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 
-interface Product {
-  name: string;
-  id: string;
-}
-
 const addProductSchema = z.object({
   name: z.string().nonempty("Pole wymagane!"),
 });
@@ -34,15 +28,16 @@ type AddExpenseSchemaType = z.infer<typeof addProductSchema>;
 
 const Index = () => {
   const { data, isLoading } = useFetchProducts();
-
   const { addProduct } = useAddProducts();
   const { deleteProduct } = useDeleteProduct();
-  const { control, handleSubmit, reset } = useForm<AddExpenseSchemaType>({
-    defaultValues: {
-      name: "",
-    },
-    resolver: zodResolver(addProductSchema),
-  });
+  const { control, handleSubmit, reset, formState } =
+    useForm<AddExpenseSchemaType>({
+      defaultValues: {
+        name: "",
+      },
+      resolver: zodResolver(addProductSchema),
+    });
+  const isFormValid = formState.isValid;
 
   if (isLoading) {
     return (
@@ -108,14 +103,11 @@ const Index = () => {
             )}
           />
 
-          <Pressable
+          <Button
+            title="Dodaj!"
             onPress={handleSubmit(handleButtonPress)}
-            style={RootPageStyles.button}
-          >
-            <View>
-              <Text style={RootPageStyles.buttonLabel}>Dodaj!</Text>
-            </View>
-          </Pressable>
+            disabled={!isFormValid}
+          />
         </View>
       </SafeAreaView>
     </KeyboardAvoidingView>
