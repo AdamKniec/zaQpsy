@@ -12,7 +12,7 @@ import "react-native-get-random-values";
 import { SafeAreaView } from "react-native-safe-area-context";
 import useFetchExpenses from "../api/expenses/useFetchExpenses";
 import ListItem from "../components/ListItem/ListItem";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import useDeleteExpense from "../api/expenses/useDeleteExpenses";
 
@@ -21,14 +21,7 @@ import Modal from "../components/Modal/Modal";
 import ExpenseForm from "../components/Forms/ExpenseForm";
 import ItemsCounter from "../components/ItemsCounter/ItemsCounter";
 
-interface Expense {
-  name: string;
-  id: string;
-  date: string;
-  price: number;
-}
 const Index = () => {
-  const [listItems, setListItems] = useState<Expense[]>([]);
   const { data, isLoading } = useFetchExpenses();
 
   const { deleteExpense } = useDeleteExpense();
@@ -49,10 +42,6 @@ const Index = () => {
     return formattedDate;
   };
 
-  useEffect(() => {
-    setListItems(data);
-  }, [data]);
-
   if (isLoading) {
     return (
       <View style={RootPageStyles.loader}>
@@ -62,8 +51,6 @@ const Index = () => {
   }
 
   const handleRemoveProduct = (id: string) => {
-    const updatedList = listItems.filter((item) => item.id !== id);
-    setListItems(updatedList);
     deleteExpense(id);
   };
 
@@ -76,7 +63,7 @@ const Index = () => {
       <SafeAreaView style={RootPageStyles.root}>
         <View style={{ gap: "10px", paddingHorizontal: 20, height: "75%" }}>
           <FlatList
-            data={listItems}
+            data={data}
             scrollEnabled
             ItemSeparatorComponent={() => {
               return <View style={{ height: 16 }} />;
@@ -95,7 +82,8 @@ const Index = () => {
             }}
           />
         </View>
-        {listItems && <ItemsCounter value={listItems.length} />}
+
+        {data && <ItemsCounter value={data.length} />}
         <View style={RootPageStyles.form}>
           <Pressable onPress={() => setModalOpen(true)}>
             <View>

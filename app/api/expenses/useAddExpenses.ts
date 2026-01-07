@@ -15,8 +15,7 @@ const useAddExpenses = () => {
   const { mutate: addExpense } = useMutation({
     mutationFn: addExpenseRequest,
     onSuccess: () => {
-      // todo invalidate only relevent queries
-      queryClient.invalidateQueries();
+      queryClient.invalidateQueries({ queryKey: ["expenses"] });
     },
   });
 
