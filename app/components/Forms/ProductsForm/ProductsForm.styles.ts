@@ -1,6 +1,6 @@
 import { StyleSheet, Platform } from "react-native";
 
-const RootPageStyles = StyleSheet.create({
+const Styles = StyleSheet.create({
   form: {
     display: "flex",
     flexDirection: "row",
@@ -21,4 +21,4 @@ const RootPageStyles = StyleSheet.create({
   },
 });
 
-export default RootPageStyles;
+export default Styles;
