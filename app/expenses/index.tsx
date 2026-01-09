@@ -18,8 +18,8 @@ import useDeleteExpense from "../api/expenses/useDeleteExpenses";
 
 import RootPageStyles from "./index.styles";
 import Modal from "../components/Modal/Modal";
-import ExpenseForm from "../components/Forms/ExpenseForm";
 import ItemsCounter from "../components/ItemsCounter/ItemsCounter";
+import ExpenseForm from "../components/Forms/ExpensesForm/ExpenseForm";
 
 const Index = () => {
   const { data, isLoading } = useFetchExpenses();
