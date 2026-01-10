@@ -2,8 +2,14 @@ import { useMutation } from "@tanstack/react-query";
 import api from "../api";
 import { queryClient } from "@/app/_layout";
 
-// TODO GET RID OF ANY
-const addExpenseRequest = async (newExpense: any) => {
+export type Expense = {
+  id: string;
+  name: string;
+  price: number;
+  date: Date;
+};
+
+const addExpenseRequest = async (newExpense: Expense) => {
   const response = await api.post(`/expenses`, {
     ...newExpense,
   });
