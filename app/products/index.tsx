@@ -14,10 +14,12 @@ import RootPageStyles from "./index.styles";
 import ListItem from "./components/ListItem/ListItem";
 import ItemsCounter from "../components/ItemsCounter/ItemsCounter";
 import ProductsForm from "../components/Forms/ProductsForm/ProductsForm";
+import useKeyboardOpen from "../hooks/useKeyboardOpen";
 
 const Index = () => {
   const { data, isLoading } = useFetchProducts();
   const { deleteProduct } = useDeleteProduct();
+  const isOpen = useKeyboardOpen();
 
   if (isLoading) {
     return (
@@ -35,10 +37,10 @@ const Index = () => {
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={{ flex: 1 }}
-      keyboardVerticalOffset={Platform.OS === "ios" ? 50 : 50}
+      keyboardVerticalOffset={isOpen ? 80 : 50}
     >
       <SafeAreaView style={RootPageStyles.root}>
-        <View style={{ gap: "10px", paddingHorizontal: 20, height: "75%" }}>
+        <View style={{ flex: 1, paddingHorizontal: 20 }}>
           <FlatList
             data={data}
             scrollEnabled
