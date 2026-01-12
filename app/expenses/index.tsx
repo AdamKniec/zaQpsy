@@ -20,6 +20,7 @@ import RootPageStyles from "./index.styles";
 import Modal from "../components/Modal/Modal";
 import ItemsCounter from "../components/ItemsCounter/ItemsCounter";
 import ExpenseForm from "../components/Forms/ExpensesForm/ExpenseForm";
+import ExpenseListItem from "../components/ExpenseListItem/ExpenseListItem";
 
 const Index = () => {
   const { data, isLoading } = useFetchExpenses();
@@ -50,7 +51,7 @@ const Index = () => {
     );
   }
 
-  const handleRemoveProduct = (id: string) => {
+  const handleRemoveExpense = (id: string) => {
     deleteExpense(id);
   };
 
@@ -71,12 +72,12 @@ const Index = () => {
             renderItem={(expense) => {
               formatDate(expense.item.date);
               return (
-                <ListItem
+                <ExpenseListItem
                   productName={expense.item.name}
                   price={expense.item.price}
                   date={formatDate(expense.item.date)}
                   uuid={expense.item.id}
-                  handleRemoveProduct={handleRemoveProduct}
+                  handleRemoveExpense={handleRemoveExpense}
                 />
               );
             }}
