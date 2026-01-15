@@ -1,14 +1,15 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import { Stack } from "expo-router";
-import { StatusBar, StyleSheet, View } from "react-native";
+import { StatusBar, View } from "react-native";
+import Styles from "./layout.styles";
 
 export const queryClient = new QueryClient();
 
 export default function RootLayout() {
   return (
     <QueryClientProvider client={queryClient}>
-      <View style={RootLayoutStyles.root}>
+      <View style={Styles.root}>
         <StatusBar barStyle="light-content" />
         <Stack screenOptions={{ contentStyle: { backgroundColor: "#101922" } }}>
           <Stack.Screen
@@ -40,9 +41,3 @@ export default function RootLayout() {
     </QueryClientProvider>
   );
 }
-
-const RootLayoutStyles = StyleSheet.create({
-  root: {
-    flex: 1,
-  },
-});

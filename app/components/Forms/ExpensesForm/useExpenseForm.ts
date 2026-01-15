@@ -19,7 +19,7 @@ const expenseFormDefaultValues = {
 
 type AddExpenseSchemaType = z.infer<typeof addExpenseSchema>;
 
-export const useExpenseForm = () => {
+const useExpenseForm = () => {
   const { addExpense } = useAddExpenses();
   const { control, handleSubmit, formState } = useForm<AddExpenseSchemaType>({
     defaultValues: expenseFormDefaultValues,
@@ -46,3 +46,5 @@ export const useExpenseForm = () => {
     onFormSubmit: handleSubmit(onSubmit),
   };
 };
+
+export default useExpenseForm;

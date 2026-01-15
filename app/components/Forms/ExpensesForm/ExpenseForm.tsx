@@ -1,7 +1,7 @@
 import RootPageStyles from "@/app/expenses/index.styles";
 import { Controller } from "react-hook-form";
 import { TextInput, View, Button, Platform } from "react-native";
-import { useExpenseForm } from "./useExpenseForm";
+import useExpenseForm from "./useExpenseForm";
 import DatePickerAndroid from "../DatePickerAndroid";
 import DatePickerIOS from "../DatePickerIOS";
 
