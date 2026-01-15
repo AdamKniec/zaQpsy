@@ -11,7 +11,6 @@ import "react-native-get-random-values";
 
 import { SafeAreaView } from "react-native-safe-area-context";
 import useFetchExpenses from "../api/expenses/useFetchExpenses";
-import ListItem from "../components/ListItem/ListItem";
 import { useState } from "react";
 
 import useDeleteExpense from "../api/expenses/useDeleteExpenses";

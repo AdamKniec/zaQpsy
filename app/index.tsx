@@ -1,10 +1,11 @@
-import { StyleSheet, View } from "react-native";
+import { View } from "react-native";
 import Tile from "./components/Tile/Tile";
 import paths from "./routing";
 import { useNetInfo } from "@react-native-community/netinfo";
 import NoInternet from "./components/NoInternet/NoInternet";
 import ShoppingCartIcon from "../assets/images/shopping-cart.png";
 import ExpensesIcon from "../assets/images/expenses.png";
+import Styles from "./index.styles";
 
 const Index = () => {
   const { isConnected } = useNetInfo();
@@ -22,12 +23,3 @@ const Index = () => {
 };
 
 export default Index;
-
-const Styles = StyleSheet.create({
-  wrapper: {
-    justifyContent: "center",
-    flex: 1,
-    alignItems: "center",
-    gap: 20,
-  },
-});
