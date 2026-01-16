@@ -37,7 +37,7 @@ const Index = () => {
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={{ flex: 1 }}
-      keyboardVerticalOffset={isOpen ? 80 : 50}
+      keyboardVerticalOffset={isOpen ? 80 : 100}
     >
       <SafeAreaView style={RootPageStyles.root}>
         <View style={{ flex: 1, paddingHorizontal: 20 }}>
