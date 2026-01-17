@@ -4,16 +4,15 @@ const RootPageStyles = StyleSheet.create({
   root: {
     flex: 1,
     width: "100%",
-    marginTop: 40,
     justifyContent: "space-between",
   },
   form: {
     display: "flex",
     flexDirection: "row",
     justifyContent: "center",
-    gap: 20,
-    marginTop: 20,
-    marginBottom: 20,
+    paddingBottom: Platform.select({
+      android: 20,
+    }),
   },
   input: {
     borderRadius: 10,
