@@ -61,7 +61,7 @@ const Index = () => {
       keyboardVerticalOffset={Platform.OS === "ios" ? 50 : 50}
     >
       <SafeAreaView style={RootPageStyles.root}>
-        <View style={{ gap: "10px", paddingHorizontal: 20, height: "75%" }}>
+        <View style={{ gap: "10px", paddingHorizontal: 20, flex: 1 }}>
           <FlatList
             data={data}
             scrollEnabled
