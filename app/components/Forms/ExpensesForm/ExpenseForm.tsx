@@ -4,12 +4,13 @@ import { TextInput, View, Button, Platform } from "react-native";
 import useExpenseForm from "./useExpenseForm";
 import DatePickerAndroid from "../DatePickerAndroid";
 import DatePickerIOS from "../DatePickerIOS";
+import Styles from "./ExpenseForm.styles";
 
 const ExpenseForm = () => {
   const { control, isFormValid, onFormSubmit } = useExpenseForm();
 
   return (
-    <View style={{ width: 200, gap: 10 }}>
+    <View style={Styles.wrapper}>
       <Controller
         control={control}
         render={({ field: { onChange, value } }) => (
