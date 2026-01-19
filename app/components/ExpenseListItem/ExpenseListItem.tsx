@@ -13,7 +13,7 @@ interface ListItemProps {
 const ExpenseListItem = (props: ListItemProps) => {
   return (
     <View style={Styles.wrapper}>
-      <View style={{ flex: 1 }}>
+      <View style={Styles.flexWrapper}>
         <Text style={{ ...Styles.shared, ...Styles.title }}>
           {props.productName}
           {props.price && <Text> {`- ${props.price}`}</Text>}
