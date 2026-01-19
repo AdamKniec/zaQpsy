@@ -9,7 +9,7 @@ const Styles = StyleSheet.create({
     borderRadius: 10,
     padding: 10,
   },
-
+  flexWrapper: { flex: 1 },
   shared: {
     color: "#fff",
     margin: 0,
