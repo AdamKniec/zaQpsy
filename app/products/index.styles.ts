@@ -1,12 +1,13 @@
 import { StyleSheet, Platform } from "react-native";
 
-const RootPageStyles = StyleSheet.create({
+const Styles = StyleSheet.create({
   root: {
     flex: 1,
     width: "100%",
     marginTop: 40,
     justifyContent: "space-between",
   },
+  wrapper: { flex: 1, paddingHorizontal: 20 },
   form: {
     display: "flex",
     flexDirection: "row",
@@ -25,6 +26,7 @@ const RootPageStyles = StyleSheet.create({
     }),
     paddingLeft: 15,
   },
+  separator: { height: 16 },
   button: {
     borderWidth: 1,
     borderRadius: 10,
@@ -43,4 +45,4 @@ const RootPageStyles = StyleSheet.create({
   },
 });
 
-export default RootPageStyles;
+export default Styles;

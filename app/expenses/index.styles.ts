@@ -1,6 +1,6 @@
 import { StyleSheet, Platform } from "react-native";
 
-const RootPageStyles = StyleSheet.create({
+const Styles = StyleSheet.create({
   root: {
     flex: 1,
     width: "100%",
@@ -14,6 +14,8 @@ const RootPageStyles = StyleSheet.create({
       android: 20,
     }),
   },
+  listWrapper: { gap: "10px", paddingHorizontal: 20, flex: 1 },
+  separator: { height: 16 },
   input: {
     borderRadius: 10,
     borderWidth: 1,
@@ -42,4 +44,4 @@ const RootPageStyles = StyleSheet.create({
   },
 });
 
-export default RootPageStyles;
+export default Styles;

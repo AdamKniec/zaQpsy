@@ -13,7 +13,7 @@ const Styles = StyleSheet.create({
     paddingVertical: 15,
     fontWeight: "500",
   },
-
+  pressable: { justifyContent: "center" },
   shared: {
     color: "#fff",
     padding: 10,
