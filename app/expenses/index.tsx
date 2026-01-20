@@ -15,7 +15,7 @@ import { useState } from "react";
 
 import useDeleteExpense from "../api/expenses/useDeleteExpenses";
 
-import RootPageStyles from "./index.styles";
+import Styles from "./index.styles";
 import Modal from "../components/Modal/Modal";
 import ItemsCounter from "../components/ItemsCounter/ItemsCounter";
 import ExpenseForm from "../components/Forms/ExpensesForm/ExpenseForm";
@@ -44,7 +44,7 @@ const Index = () => {
 
   if (isLoading) {
     return (
-      <View style={RootPageStyles.loader}>
+      <View style={Styles.loader}>
         <ActivityIndicator color={"#fff"} size={"large"} />
       </View>
     );
@@ -60,13 +60,13 @@ const Index = () => {
       style={{ flex: 1 }}
       keyboardVerticalOffset={Platform.OS === "ios" ? 50 : 50}
     >
-      <SafeAreaView style={RootPageStyles.root}>
-        <View style={{ gap: "10px", paddingHorizontal: 20, flex: 1 }}>
+      <SafeAreaView style={Styles.root}>
+        <View style={Styles.listWrapper}>
           <FlatList
             data={data}
             scrollEnabled
             ItemSeparatorComponent={() => {
-              return <View style={{ height: 16 }} />;
+              return <View style={Styles.separator} />;
             }}
             renderItem={(expense) => {
               formatDate(expense.item.date);
@@ -84,10 +84,10 @@ const Index = () => {
         </View>
 
         {data && <ItemsCounter value={data.length} />}
-        <View style={RootPageStyles.form}>
+        <View style={Styles.form}>
           <Pressable onPress={() => setModalOpen(true)}>
             <View>
-              <Text style={{ color: "#fff" }}>DODAJ!</Text>
+              <Text style={Styles.buttonLabel}>DODAJ!</Text>
             </View>
           </Pressable>
           <Modal modalOpen={modalOpen} setModalOpen={setModalOpen}>

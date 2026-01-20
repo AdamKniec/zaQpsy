@@ -14,7 +14,7 @@ const ListItem = (props: ProductNameProps) => {
       <Text style={{ ...Styles.text, ...Styles.shared }}>
         <Text> {props.productName}</Text>
       </Text>
-      <Pressable style={{ justifyContent: "center" }}>
+      <Pressable style={Styles.pressable}>
         <Text
           style={{ ...Styles.shared }}
           onPress={() => props.handleRemoveProduct(props.uuid)}

@@ -10,7 +10,7 @@ import {
 import "react-native-get-random-values";
 import useDeleteProduct from "../api/products/useDeleteProducts";
 import useFetchProducts from "../api/products/useFetchProducts";
-import RootPageStyles from "./index.styles";
+import Styles from "./index.styles";
 import ListItem from "./components/ListItem/ListItem";
 import ItemsCounter from "../components/ItemsCounter/ItemsCounter";
 import ProductsForm from "../components/Forms/ProductsForm/ProductsForm";
@@ -23,7 +23,7 @@ const Index = () => {
 
   if (isLoading) {
     return (
-      <View style={RootPageStyles.loader}>
+      <View style={Styles.loader}>
         <ActivityIndicator color={"#fff"} size={"large"} />
       </View>
     );
@@ -39,13 +39,13 @@ const Index = () => {
       style={{ flex: 1 }}
       keyboardVerticalOffset={isOpen ? 80 : 100}
     >
-      <SafeAreaView style={RootPageStyles.root}>
-        <View style={{ flex: 1, paddingHorizontal: 20 }}>
+      <SafeAreaView style={Styles.root}>
+        <View style={Styles.wrapper}>
           <FlatList
             data={data}
             scrollEnabled
             ItemSeparatorComponent={() => {
-              return <View style={{ height: 16 }} />;
+              return <View style={Styles.separator} />;
             }}
             renderItem={(product) => {
               return (
