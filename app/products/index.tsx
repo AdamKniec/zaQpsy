@@ -15,6 +15,7 @@ import ListItem from "./components/ListItem/ListItem";
 import ItemsCounter from "../components/ItemsCounter/ItemsCounter";
 import ProductsForm from "../components/Forms/ProductsForm/ProductsForm";
 import useKeyboardOpen from "../hooks/useKeyboardOpen";
+import FlatListSeparator from "../components/FlatListSeparator/FlatListSeparator";
 
 const Index = () => {
   const { data, isLoading } = useFetchProducts();
@@ -44,9 +45,7 @@ const Index = () => {
           <FlatList
             data={data}
             scrollEnabled
-            ItemSeparatorComponent={() => {
-              return <View style={Styles.separator} />;
-            }}
+            ItemSeparatorComponent={() => <FlatListSeparator />}
             renderItem={(product) => {
               return (
                 <ListItem

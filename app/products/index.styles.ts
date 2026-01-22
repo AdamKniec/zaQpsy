@@ -26,7 +26,7 @@ const Styles = StyleSheet.create({
     }),
     paddingLeft: 15,
   },
-  separator: { height: 16 },
+
   button: {
     borderWidth: 1,
     borderRadius: 10,

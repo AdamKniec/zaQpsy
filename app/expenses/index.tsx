@@ -6,6 +6,7 @@ import {
   Platform,
   KeyboardAvoidingView,
   ActivityIndicator,
+  FlatListComponent,
 } from "react-native";
 import "react-native-get-random-values";
 
@@ -20,6 +21,7 @@ import Modal from "../components/Modal/Modal";
 import ItemsCounter from "../components/ItemsCounter/ItemsCounter";
 import ExpenseForm from "../components/Forms/ExpensesForm/ExpenseForm";
 import ExpenseListItem from "../components/ExpenseListItem/ExpenseListItem";
+import FlatListSeparator from "../components/FlatListSeparator/FlatListSeparator";
 
 const Index = () => {
   const { data, isLoading } = useFetchExpenses();
@@ -65,9 +67,7 @@ const Index = () => {
           <FlatList
             data={data}
             scrollEnabled
-            ItemSeparatorComponent={() => {
-              return <View style={Styles.separator} />;
-            }}
+            ItemSeparatorComponent={() => <FlatListSeparator />}
             renderItem={(expense) => {
               formatDate(expense.item.date);
               return (

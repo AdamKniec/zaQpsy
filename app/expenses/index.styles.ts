@@ -15,7 +15,7 @@ const Styles = StyleSheet.create({
     }),
   },
   listWrapper: { gap: "10px", paddingHorizontal: 20, flex: 1 },
-  separator: { height: 16 },
+
   input: {
     borderRadius: 10,
     borderWidth: 1,
