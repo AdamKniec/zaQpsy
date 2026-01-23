@@ -6,7 +6,6 @@ import {
   Platform,
   KeyboardAvoidingView,
   ActivityIndicator,
-  FlatListComponent,
 } from "react-native";
 import "react-native-get-random-values";
 
