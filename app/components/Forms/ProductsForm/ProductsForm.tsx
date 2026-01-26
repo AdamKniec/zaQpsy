@@ -1,7 +1,8 @@
 import { Controller } from "react-hook-form";
-import { Button, TextInput, View } from "react-native";
+import { TextInput, View } from "react-native";
 import Styles from "./ProductsForm.styles";
 import useProductsForm from "./useProductsForm";
+import Button from "../../Button/Button";
 
 const ProductsForm = () => {
   const { control, isFormValid, onSubmit } = useProductsForm();
@@ -21,7 +22,7 @@ const ProductsForm = () => {
         )}
       />
 
-      <Button title="Dodaj!" onPress={onSubmit} disabled={!isFormValid} />
+      <Button label="Dodaj!" disabled={!isFormValid} onPress={onSubmit} />
     </View>
   );
 };
