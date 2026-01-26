@@ -1,10 +1,11 @@
 import RootPageStyles from "@/app/expenses/index.styles";
 import { Controller } from "react-hook-form";
-import { TextInput, View, Button, Platform } from "react-native";
+import { TextInput, View, Platform } from "react-native";
 import useExpenseForm from "./useExpenseForm";
 import DatePickerAndroid from "../Datepickers/DatePickerAndroid";
 import DatePickerIOS from "../Datepickers/DatePickerIOS";
 import Styles from "./ExpenseForm.styles";
+import Button from "../../Button/Button";
 
 const ExpenseForm = () => {
   const { control, isFormValid, onFormSubmit } = useExpenseForm();
@@ -42,7 +43,8 @@ const ExpenseForm = () => {
       {Platform.OS === "android" && <DatePickerAndroid control={control} />}
 
       {Platform.OS === "ios" && <DatePickerIOS control={control} />}
-      <Button title="Submit" onPress={onFormSubmit} disabled={!isFormValid} />
+
+      <Button label={"Submit"} onPress={onFormSubmit} disabled={!isFormValid} />
     </View>
   );
 };
