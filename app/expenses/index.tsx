@@ -32,7 +32,7 @@ const Index = () => {
     const dajeObj = new Date(date);
     const year = dajeObj.getFullYear();
     const month = dajeObj.getUTCMonth() + 1;
-    const day = dajeObj.getUTCDate() + 1;
+    const day = dajeObj.getUTCDate();
 
     const formattedDate = `${day}-${month}-${year}`;
     // TODO remove this condition after data is migrated
