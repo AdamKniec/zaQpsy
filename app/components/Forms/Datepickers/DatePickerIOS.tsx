@@ -3,6 +3,7 @@ import RNDateTimePicker from "@react-native-community/datetimepicker";
 import { useState } from "react";
 import { Controller } from "react-hook-form";
 import { View } from "react-native";
+import Styles from "./Styles";
 
 interface DatePickerIOSProps {
   control: ControlProp;
@@ -20,14 +21,7 @@ const DatePickerIOS = (props: DatePickerIOSProps) => {
       render={({ field: { onChange, value } }) => {
         return (
           <>
-            <View
-              style={{
-                width: "auto",
-                borderWidth: 1,
-                backgroundColor: "#959393",
-                borderRadius: 10,
-              }}
-            >
+            <View style={Styles.wrapper}>
               <RNDateTimePicker
                 mode="date"
                 display="default"
