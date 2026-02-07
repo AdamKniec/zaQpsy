@@ -12,7 +12,7 @@ const Styles = StyleSheet.create({
   input: {
     borderRadius: 10,
     borderWidth: 1,
-    color: "black",
+    color: "white",
     width: "70%",
     padding: Platform.select({
       ios: 10,
