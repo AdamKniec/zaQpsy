@@ -10,7 +10,7 @@ const addProductRequest = async (newProduct: any) => {
 };
 
 const useAddProducts = () => {
-  const { mutate: addProduct } = useMutation({
+  const { mutate: addProduct, isPending } = useMutation({
     mutationFn: addProductRequest,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["products"] });
@@ -19,6 +19,7 @@ const useAddProducts = () => {
 
   return {
     addProduct,
+    isPending,
   };
 };
 
