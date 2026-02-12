@@ -10,7 +10,7 @@ const addProductSchema = z.object({
 type AddExpenseSchemaType = z.infer<typeof addProductSchema>;
 
 const useProductsForm = () => {
-  const { addProduct } = useAddProducts();
+  const { mutate, isPending } = useAddProducts();
 
   const { control, handleSubmit, reset, formState } =
     useForm<AddExpenseSchemaType>({
@@ -23,7 +23,7 @@ const useProductsForm = () => {
 
   //todo handle this case properly
   const handleButtonPress = (data: any) => {
-    addProduct({
+    mutate({
       id: uuidv4(),
       name: data.name,
     });
@@ -31,7 +31,12 @@ const useProductsForm = () => {
     reset();
   };
 
-  return { onSubmit: handleSubmit(handleButtonPress), control, isFormValid };
+  return {
+    onSubmit: handleSubmit(handleButtonPress),
+    control,
+    isFormValid,
+    isPending,
+  };
 };
 
 export default useProductsForm;

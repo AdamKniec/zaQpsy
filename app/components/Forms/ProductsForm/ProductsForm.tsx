@@ -5,7 +5,7 @@ import useProductsForm from "./useProductsForm";
 import Button from "../../Button/Button";
 
 const ProductsForm = () => {
-  const { control, isFormValid, onSubmit } = useProductsForm();
+  const { control, isFormValid, onSubmit, isPending } = useProductsForm();
   return (
     <View style={Styles.form}>
       <Controller
@@ -22,7 +22,11 @@ const ProductsForm = () => {
         )}
       />
 
-      <Button label="Dodaj!" disabled={!isFormValid} onPress={onSubmit} />
+      <Button
+        label={isPending ? "..." : "Dodaj"}
+        disabled={!isFormValid}
+        onPress={onSubmit}
+      />
     </View>
   );
 };

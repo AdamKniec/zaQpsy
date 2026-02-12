@@ -10,16 +10,12 @@ const addProductRequest = async (newProduct: any) => {
 };
 
 const useAddProducts = () => {
-  const { mutate: addProduct } = useMutation({
+  return useMutation({
     mutationFn: addProductRequest,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["products"] });
     },
   });
-
-  return {
-    addProduct,
-  };
 };
 
 export default useAddProducts;
