@@ -8,7 +8,7 @@ import Styles from "./ExpenseForm.styles";
 import Button from "../../Button/Button";
 
 const ExpenseForm = () => {
-  const { control, isFormValid, onFormSubmit } = useExpenseForm();
+  const { control, isFormValid, onFormSubmit, isPending } = useExpenseForm();
 
   return (
     <View style={Styles.wrapper}>
@@ -44,7 +44,11 @@ const ExpenseForm = () => {
 
       {Platform.OS === "ios" && <DatePickerIOS control={control} />}
 
-      <Button label={"Submit"} onPress={onFormSubmit} disabled={!isFormValid} />
+      <Button
+        label={isPending ? "..." : "Dodaj"}
+        onPress={onFormSubmit}
+        disabled={!isFormValid}
+      />
     </View>
   );
 };

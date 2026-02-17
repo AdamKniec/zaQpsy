@@ -18,16 +18,12 @@ const addExpenseRequest = async (newExpense: Expense) => {
 };
 
 const useAddExpenses = () => {
-  const { mutate: addExpense } = useMutation({
+  return useMutation({
     mutationFn: addExpenseRequest,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["expenses"] });
     },
   });
-
-  return {
-    addExpense,
-  };
 };
 
 export default useAddExpenses;

@@ -20,7 +20,7 @@ const expenseFormDefaultValues = {
 type AddExpenseSchemaType = z.infer<typeof addExpenseSchema>;
 
 const useExpenseForm = () => {
-  const { addExpense } = useAddExpenses();
+  const { mutate, isPending } = useAddExpenses();
   const { control, handleSubmit, formState } = useForm<AddExpenseSchemaType>({
     defaultValues: expenseFormDefaultValues,
     resolver: zodResolver(addExpenseSchema),
@@ -29,7 +29,7 @@ const useExpenseForm = () => {
   // @ts-expect-error TODO ADD TS TYPE TO DATA
   const onSubmit = (data) => {
     Keyboard.dismiss();
-    addExpense({
+    mutate({
       id: uuidv4(),
       name: data.productName,
       price: data.price,
@@ -44,6 +44,7 @@ const useExpenseForm = () => {
     handleSubmit,
     isFormValid,
     onFormSubmit: handleSubmit(onSubmit),
+    isPending,
   };
 };
 
