@@ -19,7 +19,7 @@ import FlatListSeparator from "../components/FlatListSeparator/FlatListSeparator
 
 const Index = () => {
   const { data, isLoading } = useFetchProducts();
-  const { deleteProduct } = useDeleteProduct();
+  const { mutate } = useDeleteProduct();
   const isOpen = useKeyboardOpen();
 
   if (isLoading) {
@@ -31,7 +31,7 @@ const Index = () => {
   }
 
   const handleRemoveProduct = (id: string) => {
-    deleteProduct(id);
+    mutate(id);
   };
 
   return (

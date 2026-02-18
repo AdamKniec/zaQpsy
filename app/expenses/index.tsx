@@ -25,7 +25,7 @@ import FlatListSeparator from "../components/FlatListSeparator/FlatListSeparator
 const Index = () => {
   const { data, isLoading } = useFetchExpenses();
 
-  const { deleteExpense } = useDeleteExpense();
+  const { mutate } = useDeleteExpense();
   const [modalOpen, setModalOpen] = useState(false);
 
   const formatDate = (date: string) => {
@@ -52,7 +52,7 @@ const Index = () => {
   }
 
   const handleRemoveExpense = (id: string) => {
-    deleteExpense(id);
+    mutate(id);
   };
 
   return (
