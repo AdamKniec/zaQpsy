@@ -7,14 +7,12 @@ const deleteProductRequest = async (id: string) => {
 };
 
 const useDeleteProduct = () => {
-  const { mutate: deleteProduct } = useMutation({
+  return useMutation({
     mutationFn: deleteProductRequest,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["products"] });
     },
   });
-
-  return { deleteProduct };
 };
 
 export default useDeleteProduct;

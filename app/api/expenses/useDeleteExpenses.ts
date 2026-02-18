@@ -7,14 +7,12 @@ const deleteExpenseRequest = async (id: string) => {
 };
 
 const useDeleteExpense = () => {
-  const { mutate: deleteExpense } = useMutation({
+  return useMutation({
     mutationFn: deleteExpenseRequest,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["expenses"] });
     },
   });
-
-  return { deleteExpense };
 };
 
 export default useDeleteExpense;
