@@ -16,11 +16,13 @@ import ItemsCounter from "../components/ItemsCounter/ItemsCounter";
 import ProductsForm from "../components/Forms/ProductsForm/ProductsForm";
 import useKeyboardOpen from "../hooks/useKeyboardOpen";
 import FlatListSeparator from "../components/FlatListSeparator/FlatListSeparator";
+import { useState } from "react";
 
 const Index = () => {
   const { data, isLoading } = useFetchProducts();
-  const { mutate } = useDeleteProduct();
+  const { mutate, isPending } = useDeleteProduct();
   const isOpen = useKeyboardOpen();
+  const [idToBeRemoved, setIdToBeRemoved] = useState("");
 
   if (isLoading) {
     return (
@@ -32,6 +34,7 @@ const Index = () => {
 
   const handleRemoveProduct = (id: string) => {
     mutate(id);
+    setIdToBeRemoved(id);
   };
 
   return (
@@ -52,6 +55,8 @@ const Index = () => {
                   productName={product.item.name}
                   uuid={product.item.id}
                   handleRemoveProduct={handleRemoveProduct}
+                  isLoading={isPending}
+                  idToBeRemoved={idToBeRemoved}
                 />
               );
             }}
