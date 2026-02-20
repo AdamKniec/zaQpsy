@@ -7,6 +7,7 @@ const Styles = StyleSheet.create({
     borderColor: "#cccccc",
     borderWidth: 1,
     borderRadius: 10,
+    paddingRight: 10,
   },
   text: {
     flex: 1,
