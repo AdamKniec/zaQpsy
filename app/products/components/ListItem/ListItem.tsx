@@ -27,7 +27,7 @@ const ListItem = (props: ProductNameProps) => {
         style={Styles.pressable}
         onPress={() => props.handleRemoveProduct(props.uuid)}
       >
-        {props.isLoading && props.uuid === props.idToBeRemoved ? (
+        {exactItemSelected ? (
           <Animated.View style={{ transform: [{ rotate: spin }] }}>
             <Ionicons name="cog" size={24} color="green" />
           </Animated.View>
