@@ -5,6 +5,7 @@ import {
   FlatList,
   Platform,
   ActivityIndicator,
+  Text,
 } from "react-native";
 
 import "react-native-get-random-values";
@@ -45,6 +46,9 @@ const Index = () => {
     >
       <SafeAreaView style={Styles.root}>
         <View style={Styles.wrapper}>
+          {!data.length && (
+            <Text style={Styles.emptyStateText}>Lista jest pusta! 🎉</Text>
+          )}
           <FlatList
             data={data}
             scrollEnabled
