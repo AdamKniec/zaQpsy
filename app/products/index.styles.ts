@@ -16,6 +16,7 @@ const Styles = StyleSheet.create({
     marginTop: 20,
     marginBottom: 20,
   },
+  emptyStateText: { color: "#fff", textAlign: "center" },
   input: {
     borderRadius: 10,
     borderWidth: 1,
