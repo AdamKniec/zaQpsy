@@ -22,7 +22,6 @@ const ListItem = (props: ProductNameProps) => {
       <Text style={{ ...Styles.text, ...Styles.shared }}>
         <Text> {props.productName}</Text>
       </Text>
-
       <Pressable
         style={Styles.pressable}
         onPress={() => props.handleRemoveProduct(props.uuid)}
