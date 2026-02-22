@@ -1,6 +1,7 @@
-import { Pressable, Text, View } from "react-native";
+import { Animated, Pressable, Text, View } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import Styles from "./ExpenseListItem.styles";
+import useSpinAnimation from "@/app/hooks/useSpinAnimation";
 
 interface ListItemProps {
   productName: string;
@@ -8,9 +9,15 @@ interface ListItemProps {
   uuid: string;
   price: number;
   date: string;
+  idToBeRemoved: string;
+  isLoading: boolean;
 }
 
 const ExpenseListItem = (props: ListItemProps) => {
+  const exactItemSelected =
+    props.isLoading && props.uuid === props.idToBeRemoved;
+  const spin = useSpinAnimation(exactItemSelected);
+
   return (
     <View style={Styles.wrapper}>
       <View style={Styles.flexWrapper}>
@@ -20,13 +27,14 @@ const ExpenseListItem = (props: ListItemProps) => {
         </Text>
         <Text style={Styles.date}>{props.date}</Text>
       </View>
-      <Pressable style={{ justifyContent: "center" }}>
-        <Text
-          style={{ ...Styles.shared }}
-          onPress={() => props.handleRemoveExpense(props.uuid)}
-        >
-          <Ionicons name="checkbox-outline" size={24} color="green" />
-        </Text>
+      <Pressable onPress={() => props.handleRemoveExpense(props.uuid)}>
+        {exactItemSelected ? (
+          <Animated.View style={{ transform: [{ rotate: spin }] }}>
+            <Ionicons name="cog" size={24} color="green" />
+          </Animated.View>
+        ) : (
+          <Ionicons name="checkbox-outline" size={24} color={"green"} />
+        )}
       </Pressable>
     </View>
   );
