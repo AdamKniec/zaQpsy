@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import useAddProducts from "@/app/api/products/useAddProduct";
-import { v4 as uuidv4 } from "uuid";
+import { UUIDTypes, v4 as uuidv4 } from "uuid";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
@@ -21,8 +21,7 @@ const useProductsForm = () => {
     });
   const isFormValid = formState.isValid;
 
-  //todo handle this case properly
-  const handleButtonPress = (data: any) => {
+  const handleButtonPress = (data: { name: string }) => {
     mutate({
       id: uuidv4(),
       name: data.name,
