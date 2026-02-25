@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import useAddProducts from "@/app/api/products/useAddProduct";
-import { UUIDTypes, v4 as uuidv4 } from "uuid";
+import { v4 as uuidv4 } from "uuid";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
