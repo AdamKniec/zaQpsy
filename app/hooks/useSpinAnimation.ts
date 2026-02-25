@@ -19,7 +19,7 @@ const useSpinAnimation = (exactItemSelected: boolean) => {
       animation.start();
       return () => animation.stop();
     }
-  }, [exactItemSelected]);
+  }, [exactItemSelected, rotateAnim]);
 
   const spin = rotateAnim.interpolate({
     inputRange: [0, 1],

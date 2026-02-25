@@ -2,7 +2,7 @@ import { Pressable, Text } from "react-native";
 import Styles from "./Button.styles";
 
 interface ButtonProps {
-  label: String;
+  label: string;
   disabled: boolean;
   onPress: () => void;
 }
