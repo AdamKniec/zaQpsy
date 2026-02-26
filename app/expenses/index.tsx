@@ -8,13 +8,10 @@ import {
   ActivityIndicator,
 } from "react-native";
 import "react-native-get-random-values";
-
 import { SafeAreaView } from "react-native-safe-area-context";
 import useFetchExpenses from "../api/expenses/useFetchExpenses";
 import { useState } from "react";
-
 import useDeleteExpense from "../api/expenses/useDeleteExpenses";
-
 import Styles from "./index.styles";
 import Modal from "../components/Modal/Modal";
 import ItemsCounter from "../components/ItemsCounter/ItemsCounter";

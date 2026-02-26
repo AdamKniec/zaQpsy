@@ -7,7 +7,6 @@ import {
   ActivityIndicator,
   Text,
 } from "react-native";
-
 import "react-native-get-random-values";
 import useDeleteProduct from "../api/products/useDeleteProducts";
 import useFetchProducts from "../api/products/useFetchProducts";

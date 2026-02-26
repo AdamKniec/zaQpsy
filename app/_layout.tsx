@@ -1,5 +1,4 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-
 import { Stack } from "expo-router";
 import { StatusBar, View } from "react-native";
 import Styles from "./layout.styles";

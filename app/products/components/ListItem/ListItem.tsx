@@ -1,7 +1,6 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Animated, Pressable, Text, View } from "react-native";
 import Styles from "./ListItem.styles";
-
 import useSpinAnimation from "@/app/hooks/useSpinAnimation";
 
 interface ProductNameProps {
