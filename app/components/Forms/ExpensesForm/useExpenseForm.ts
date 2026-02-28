@@ -26,8 +26,8 @@ const useExpenseForm = () => {
     resolver: zodResolver(addExpenseSchema),
   });
 
-  // @ts-expect-error TODO ADD TS TYPE TO DATA
-  const onSubmit = (data) => {
+  
+  const onSubmit = (data: AddExpenseSchemaType) => {
     Keyboard.dismiss();
     mutate({
       id: uuidv4(),
