@@ -5,7 +5,7 @@ import { queryClient } from "@/app/_layout";
 export type Expense = {
   id: string;
   name: string;
-  price: number;
+  price: string;
   date: Date;
 };
 
