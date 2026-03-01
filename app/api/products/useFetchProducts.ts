@@ -1,10 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
-import api from "../api";
+import supabase from "../api";
 
-// TODO FETCH USING SUPABASE OBJECT
+
+
 const fetchProducts = async () => {
-  const response = await api.get("/products");
-  return response.data;
+ 
+  const {data} = await supabase.from('products').select()
+  
+  return data
 };
 
 const useFetchProducts = () => {

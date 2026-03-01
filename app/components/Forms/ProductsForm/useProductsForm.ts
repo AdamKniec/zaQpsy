@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import useAddProducts from "@/app/api/products/useAddProduct";
-import { v4 as uuidv4 } from "uuid";
+// import { v4 as uuidv4 } from "uuid";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
@@ -10,9 +10,13 @@ const addProductSchema = z.object({
 type AddExpenseSchemaType = z.infer<typeof addProductSchema>;
 
 const useProductsForm = () => {
-  const { mutate, isPending } = useAddProducts();
+  const { 
+    // mutate,
+     isPending } = useAddProducts();
 
-  const { control, handleSubmit, reset, formState } =
+  const { control, handleSubmit, 
+    // reset,
+     formState } =
     useForm<AddExpenseSchemaType>({
       defaultValues: {
         name: "",
@@ -21,17 +25,17 @@ const useProductsForm = () => {
     });
   const isFormValid = formState.isValid;
 
-  const handleButtonPress = (data: { name: string }) => {
-    mutate({
-      id: uuidv4(),
-      name: data.name,
-    });
+  // const handleButtonPress = (data: { name: string }) => {
+  //   // mutate({
+  //   //   id: uuidv4(),
+  //   //   name: data.name,
+  //   // });
 
-    reset();
-  };
+  //   reset();
+  // };
 
   return {
-    onSubmit: handleSubmit(handleButtonPress),
+    onSubmit: handleSubmit(() => {}),
     control,
     isFormValid,
     isPending,
