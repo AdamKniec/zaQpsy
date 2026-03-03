@@ -2,8 +2,8 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import useAddExpenses from "@/app/api/expenses/useAddExpenses";
-// import { Keyboard } from "react-native";
-// import { v4 as uuidv4 } from "uuid";
+ import { Keyboard } from "react-native";
+ import { v4 as uuidv4 } from "uuid";
 
 const addExpenseSchema = z.object({
   productName: z.string().nonempty("Pole wymagane!"),
@@ -20,24 +20,22 @@ const expenseFormDefaultValues = {
 type AddExpenseSchemaType = z.infer<typeof addExpenseSchema>;
 
 const useExpenseForm = () => {
-  const { 
-    // mutate,
-     isPending } = useAddExpenses();
+  const { mutate, isPending } = useAddExpenses();
   const { control, handleSubmit, formState } = useForm<AddExpenseSchemaType>({
     defaultValues: expenseFormDefaultValues,
     resolver: zodResolver(addExpenseSchema),
   });
 
   
-  // const onSubmit = (data: AddExpenseSchemaType) => {
-  //   Keyboard.dismiss();
-  //   // mutate({
-  //   //   id: uuidv4(),
-  //   //   name: data.productName,
-  //   //   price: data.price,
-  //   //   date: data.date,
-  //   // });
-  // };
+  const onSubmit = (data: AddExpenseSchemaType) => {
+    Keyboard.dismiss();
+    mutate({
+      id: uuidv4(),
+      name: data.productName,
+      price: data.price,
+      date: data.date,
+    });
+  };
 
   const isFormValid = formState.isValid;
 
@@ -45,7 +43,7 @@ const useExpenseForm = () => {
     control,
     handleSubmit,
     isFormValid,
-    onFormSubmit: handleSubmit(() => {}),
+    onFormSubmit: handleSubmit(onSubmit),
     isPending,
   };
 };
