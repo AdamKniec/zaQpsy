@@ -3,7 +3,7 @@ import { queryClient } from "@/app/_layout";
 import supabase from "../api";
 
 const deleteExpenseRequest = async (id: string) => {
-  await supabase.from('expenses').delete().eq('id', id)
+  await supabase.from('expenses').delete().eq('id', id);
 };
 
 const useDeleteExpense = () => {
