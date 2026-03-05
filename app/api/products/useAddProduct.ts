@@ -1,21 +1,20 @@
 import { useMutation } from "@tanstack/react-query";
-// import api from "../api";
 import { queryClient } from "@/app/_layout";
-// import { UUIDTypes } from "uuid";
+import { UUIDTypes } from "uuid";
+import supabase from "../api";
 
-// const addProductRequest = async (newProduct: {
-//   name: string;
-//   id: UUIDTypes;
-// }) => {
-//   const response = await api.post("/products", {
-//     ...newProduct,
-//   });
-//   return response;
-// };
+const addProductRequest = async (newProduct: {
+  name: string;
+  id: UUIDTypes;
+}) => {
+  await supabase.from('products').insert({
+    ...newProduct
+  })
+};
 
 const useAddProducts = () => {
   return useMutation({
-    // mutationFn: addProductRequest,
+    mutationFn: addProductRequest,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["products"] });
     },

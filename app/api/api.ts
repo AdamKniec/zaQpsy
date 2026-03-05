@@ -1,8 +1,10 @@
 // import axios from "axios";
 import { createClient } from '@supabase/supabase-js'
 
-const API_TOKEN = process.env.EXPO_PUBLIC_API_TOKEN;
-const API_URL = process.env.EXPO_PUBLIC_API_URL;
+ const API_TOKEN = process.env.EXPO_PUBLIC_API_TOKEN;
+ const API_URL = process.env.EXPO_PUBLIC_API_URL;
+
+// TODO CONSIDER REMOVING THE AXIOS INSTANCE
 
 // const api = axios.create({
 //   baseURL: API_URL,
