@@ -11,11 +11,11 @@ type AddExpenseSchemaType = z.infer<typeof addProductSchema>;
 
 const useProductsForm = () => {
   const { 
-    // mutate,
+    mutate,
      isPending } = useAddProducts();
 
   const { control, handleSubmit, 
-    // reset,
+     reset,
      formState } =
     useForm<AddExpenseSchemaType>({
       defaultValues: {
@@ -25,17 +25,17 @@ const useProductsForm = () => {
     });
   const isFormValid = formState.isValid;
 
-  // const handleButtonPress = (data: { name: string }) => {
-  //   // mutate({
-  //   //   id: uuidv4(),
-  //   //   name: data.name,
-  //   // });
+  const handleButtonPress = (data: { name: string }) => {
+    mutate({
+      id: uuidv4(),
+      name: data.name,
+    });
 
-  //   reset();
-  // };
+    reset();
+  };
 
   return {
-    onSubmit: handleSubmit(() => {}),
+    onSubmit: handleSubmit(handleButtonPress),
     control,
     isFormValid,
     isPending,
