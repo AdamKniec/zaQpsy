@@ -20,7 +20,7 @@ import { useState } from "react";
 
 const Index = () => {
   const { data, isLoading } = useFetchProducts();
-  const { mutate, isPending } = useDeleteProduct();
+  const { mutate,isPending } = useDeleteProduct();
   const isOpen = useKeyboardOpen();
   const [idToBeRemoved, setIdToBeRemoved] = useState("");
 
@@ -45,7 +45,7 @@ const Index = () => {
     >
       <SafeAreaView style={Styles.root}>
         <View style={Styles.wrapper}>
-          {!data.length && (
+          {!data && (
             <Text style={Styles.emptyStateText}>Lista jest pusta! 🎉</Text>
           )}
           <FlatList

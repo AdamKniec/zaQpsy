@@ -1,6 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
-import api from "../api";
+
 import { queryClient } from "@/app/_layout";
+import supabase from "../api";
 
 export type Expense = {
   id: string;
@@ -10,16 +11,12 @@ export type Expense = {
 };
 
 const addExpenseRequest = async (newExpense: Expense) => {
-  const response = await api.post(`/expenses`, {
-    ...newExpense,
-  });
-
-  return response;
+ await  supabase.from('expenses').insert({...newExpense})
 };
 
 const useAddExpenses = () => {
   return useMutation({
-    mutationFn: addExpenseRequest,
+    mutationFn:  addExpenseRequest,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["expenses"] });
     },

@@ -1,9 +1,9 @@
 import { useMutation } from "@tanstack/react-query";
-import api from "../api";
 import { queryClient } from "@/app/_layout";
+import supabase from "../api";
 
 const deleteExpenseRequest = async (id: string) => {
-  await api.delete(`/expenses?id=eq.${id}`);
+  await supabase.from('expenses').delete().eq('id', id);
 };
 
 const useDeleteExpense = () => {
@@ -16,3 +16,4 @@ const useDeleteExpense = () => {
 };
 
 export default useDeleteExpense;
+

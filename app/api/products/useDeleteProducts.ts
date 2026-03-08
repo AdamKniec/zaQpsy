@@ -1,9 +1,9 @@
 import { useMutation } from "@tanstack/react-query";
-import api from "../api";
 import { queryClient } from "@/app/_layout";
+import supabase from "../api";
 
 const deleteProductRequest = async (id: string) => {
-  await api.delete(`/products?id=eq.${id}`);
+  await supabase.from('products').delete().eq('id', id);
 };
 
 const useDeleteProduct = () => {

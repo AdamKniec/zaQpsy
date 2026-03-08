@@ -1,16 +1,15 @@
 import { useMutation } from "@tanstack/react-query";
-import api from "../api";
 import { queryClient } from "@/app/_layout";
 import { UUIDTypes } from "uuid";
+import supabase from "../api";
 
 const addProductRequest = async (newProduct: {
   name: string;
   id: UUIDTypes;
 }) => {
-  const response = await api.post("/products", {
-    ...newProduct,
-  });
-  return response;
+  await supabase.from('products').insert({
+    ...newProduct
+  })
 };
 
 const useAddProducts = () => {

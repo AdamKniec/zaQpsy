@@ -10,9 +10,13 @@ const addProductSchema = z.object({
 type AddExpenseSchemaType = z.infer<typeof addProductSchema>;
 
 const useProductsForm = () => {
-  const { mutate, isPending } = useAddProducts();
+  const { 
+    mutate,
+     isPending } = useAddProducts();
 
-  const { control, handleSubmit, reset, formState } =
+  const { control, handleSubmit, 
+     reset,
+     formState } =
     useForm<AddExpenseSchemaType>({
       defaultValues: {
         name: "",
